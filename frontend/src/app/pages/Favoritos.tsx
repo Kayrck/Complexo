@@ -23,7 +23,7 @@ export const Favoritos = () => {
                 Meus Favoritos
               </h1>
             </div>
-            <span className="rounded-full border border-white/10 bg-complexo-surface px-4 py-2 font-mono text-sm">
+            <span className="rounded-full border border-complexo-light/10 bg-complexo-surface px-4 py-2 font-mono text-sm">
               {favorites.length} itens salvos
             </span>
           </div>
@@ -31,8 +31,8 @@ export const Favoritos = () => {
 
         {favoriteProducts.length === 0 ? (
           <Reveal delay={0.1}>
-            <div className="flex flex-col items-center justify-center rounded-3xl border border-white/10 bg-complexo-surface py-24 text-center">
-              <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-white/5 text-complexo-muted">
+            <div className="flex flex-col items-center justify-center rounded-3xl border border-complexo-light/10 bg-complexo-surface py-24 text-center">
+              <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-complexo-light/5 text-complexo-muted">
                 <HeartOff className="h-10 w-10" />
               </div>
               <h2 className="font-rajdhani text-3xl font-bold uppercase">Nenhum favorito ainda</h2>
@@ -41,7 +41,7 @@ export const Favoritos = () => {
               </p>
               <Link
                 to="/suplementos"
-                className="mt-8 rounded-full bg-complexo-red px-8 py-4 font-semibold text-white transition-colors hover:bg-complexo-red-bright"
+                className="mt-8 rounded-full bg-complexo-red px-8 py-4 font-semibold text-white hover:bg-complexo-red-bright"
               >
                 Explorar Produtos
               </Link>
@@ -52,7 +52,7 @@ export const Favoritos = () => {
             {favoriteProducts.map((p, i) => (
               <Reveal key={p.id} delay={i * 0.05}>
                 <div
-                  className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-complexo-surface"
+                  className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-complexo-light/10 bg-complexo-surface"
                 >
                   <div className="relative aspect-[4/5] overflow-hidden bg-black/50">
                     <div
@@ -66,7 +66,7 @@ export const Favoritos = () => {
                     />
                     <button
                       onClick={() => toggleFavorite(p.id)}
-                      className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur transition-colors hover:bg-complexo-red hover:text-white"
+                      className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur hover:bg-complexo-red hover:text-white"
                     >
                       <Heart className="h-5 w-5 fill-current" />
                     </button>
@@ -83,7 +83,7 @@ export const Favoritos = () => {
                       <span className="font-rajdhani text-3xl font-bold">R${p.price}</span>
                       <button
                         onClick={() => addToCart(p.id)}
-                        className="flex h-12 w-12 items-center justify-center rounded-full bg-complexo-red text-white transition-colors hover:bg-complexo-red-bright"
+                        className="flex h-12 w-12 items-center justify-center rounded-full bg-complexo-red text-white hover:bg-complexo-red-bright"
                       >
                         <ShoppingCart className="h-5 w-5" />
                       </button>

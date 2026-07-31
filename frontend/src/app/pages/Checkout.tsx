@@ -44,7 +44,7 @@ export const Checkout = () => {
                           ? "bg-complexo-red text-white"
                           : i === step
                             ? "border-2 border-complexo-red text-complexo-red"
-                            : "border border-white/15 text-complexo-muted"
+                            : "border border-complexo-light/15 text-complexo-muted"
                       }`}
                     >
                       {i < step ? <Check className="h-4 w-4" /> : i + 1}
@@ -54,13 +54,13 @@ export const Checkout = () => {
                     </span>
                   </div>
                   {i < STEPS.length - 1 && (
-                    <div className={`mx-2 h-px flex-1 ${i < step ? "bg-complexo-red" : "bg-white/10"}`} />
+                    <div className={`mx-2 h-px flex-1 ${i < step ? "bg-complexo-red" : "bg-complexo-light/10"}`} />
                   )}
                 </div>
               ))}
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-complexo-surface p-7 lg:p-10">
+            <div className="rounded-3xl border border-complexo-light/10 bg-complexo-surface p-7 lg:p-10">
               
               {step === 0 && (
                 <div className="animate-in fade-in">
@@ -73,17 +73,17 @@ export const Checkout = () => {
                   <p className="mt-4 text-complexo-muted">Como você deseja continuar?</p>
                   
                   <div className="mt-8 space-y-4">
-                    <button onClick={() => setStep(1)} className="flex w-full items-center justify-between rounded-2xl border border-complexo-red bg-complexo-red/5 p-6 transition-colors hover:bg-complexo-red/10">
+                    <button onClick={() => setStep(1)} className="flex w-full items-center justify-between rounded-2xl border border-complexo-red bg-complexo-red/5 p-6 hover:bg-complexo-red/10">
                       <div className="text-left">
-                        <h3 className="font-bold text-white">Continuar como visitante</h3>
+                        <h3 className="font-bold text-complexo-light">Continuar como visitante</h3>
                         <p className="text-sm text-complexo-muted">Rápido e prático, sem senha.</p>
                       </div>
                       <ArrowRight className="h-5 w-5 text-complexo-red" />
                     </button>
                     
-                    <button className="flex w-full items-center justify-between rounded-2xl border border-white/10 p-6 transition-colors hover:bg-white/5">
+                    <button className="flex w-full items-center justify-between rounded-2xl border border-complexo-light/10 p-6 hover:bg-complexo-light/5">
                       <div className="text-left">
-                        <h3 className="font-bold text-white">Fazer Login</h3>
+                        <h3 className="font-bold text-complexo-light">Fazer Login</h3>
                         <p className="text-sm text-complexo-muted">Use sua conta Complexo para preencher automaticamente.</p>
                       </div>
                     </button>
@@ -131,14 +131,14 @@ export const Checkout = () => {
                   <div className="flex gap-4 mb-8">
                     <button 
                       onClick={() => setPaymentMethod("credit")}
-                      className={`flex-1 rounded-2xl border p-4 text-center transition-colors ${paymentMethod === "credit" ? "border-complexo-red bg-complexo-red/10 text-white" : "border-white/10 text-complexo-muted hover:border-white/30"}`}
+                      className={`flex-1 rounded-2xl border p-4 text-center ${paymentMethod === "credit" ? "border-complexo-red bg-complexo-red/10 text-complexo-light" : "border-complexo-light/10 text-complexo-muted hover:border-complexo-light/30"}`}
                     >
                       <CreditCard className="mx-auto mb-2 h-6 w-6" />
                       <span className="font-semibold">Cartão</span>
                     </button>
                     <button 
                       onClick={() => setPaymentMethod("pix")}
-                      className={`flex-1 rounded-2xl border p-4 text-center transition-colors ${paymentMethod === "pix" ? "border-complexo-red bg-complexo-red/10 text-white" : "border-white/10 text-complexo-muted hover:border-white/30"}`}
+                      className={`flex-1 rounded-2xl border p-4 text-center ${paymentMethod === "pix" ? "border-complexo-red bg-complexo-red/10 text-complexo-light" : "border-complexo-light/10 text-complexo-muted hover:border-complexo-light/30"}`}
                     >
                       <QrCode className="mx-auto mb-2 h-6 w-6" />
                       <span className="font-semibold">PIX</span>
@@ -151,7 +151,7 @@ export const Checkout = () => {
                         <CreditCard className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-complexo-muted" />
                         <input
                           placeholder="Número do cartão"
-                          className="w-full rounded-xl border border-white/10 bg-complexo-panel py-4 pl-12 pr-4 placeholder:text-complexo-muted/60 focus:border-complexo-red focus:outline-none"
+                          className="w-full rounded-xl border border-complexo-light/10 bg-complexo-panel py-4 pl-12 pr-4 placeholder:text-complexo-muted/60 focus:border-complexo-red focus:outline-none"
                         />
                       </div>
                       <Input placeholder="Nome no cartão" />
@@ -159,7 +159,7 @@ export const Checkout = () => {
                         <Input placeholder="Validade (MM/AA)" />
                         <Input placeholder="CVV" />
                       </div>
-                      <select className="w-full rounded-xl border border-white/10 bg-complexo-panel px-4 py-4 focus:border-complexo-red focus:outline-none text-white appearance-none">
+                      <select className="w-full rounded-xl border border-complexo-light/10 bg-complexo-panel px-4 py-4 focus:border-complexo-red focus:outline-none text-complexo-light appearance-none">
                         <option value="1">1x de R$ {total.toFixed(2)} sem juros</option>
                         <option value="2">2x de R$ {(total/2).toFixed(2)} sem juros</option>
                         <option value="3">3x de R$ {(total/3).toFixed(2)} sem juros</option>
@@ -168,13 +168,13 @@ export const Checkout = () => {
                   )}
 
                   {paymentMethod === "pix" && (
-                    <div className="rounded-2xl border border-white/10 bg-complexo-panel p-8 text-center animate-in fade-in">
+                    <div className="rounded-2xl border border-complexo-light/10 bg-complexo-panel p-8 text-center animate-in fade-in">
                       <QrCode className="mx-auto mb-4 h-24 w-24 text-complexo-red" />
-                      <p className="font-bold text-white mb-2">Pague via PIX para aprovação imediata</p>
+                      <p className="font-bold text-complexo-light mb-2">Pague via PIX para aprovação imediata</p>
                       <p className="text-sm text-complexo-muted mb-6">Abra o app do seu banco e escaneie o QR Code ou copie o código abaixo.</p>
                       <div className="flex items-center gap-2 rounded-xl bg-black/50 p-3">
                         <code className="flex-1 text-sm text-complexo-red truncate">00020126360014BR.GOV.BCB.PIX...</code>
-                        <button className="rounded-lg bg-white/10 px-3 py-1.5 text-xs font-semibold hover:bg-white/20">Copiar</button>
+                        <button className="rounded-lg bg-complexo-light/10 px-3 py-1.5 text-xs font-semibold hover:bg-complexo-light/20">Copiar</button>
                       </div>
                     </div>
                   )}
@@ -190,14 +190,14 @@ export const Checkout = () => {
                   <span className="flex h-20 w-20 items-center justify-center rounded-full bg-complexo-red text-white shadow-[0_0_40px_rgba(225,6,0,0.5)]">
                     <BoltMark className="h-10 w-10" />
                   </span>
-                  <h2 className="mt-8 font-rajdhani text-4xl font-bold uppercase text-white">
+                  <h2 className="mt-8 font-rajdhani text-4xl font-bold uppercase text-complexo-light">
                     Pedido Confirmado!
                   </h2>
                   <p className="mt-4 max-w-md text-lg text-complexo-muted">
                     Seu pedido #CPLX-{Math.floor(Math.random() * 10000)} foi processado com sucesso.
                   </p>
                   
-                  <div className="mt-8 w-full max-w-sm rounded-2xl bg-white/5 p-6 text-left">
+                  <div className="mt-8 w-full max-w-sm rounded-2xl bg-complexo-light/5 p-6 text-left">
                     <h3 className="font-bold mb-4">Próximos passos</h3>
                     <ul className="space-y-3 text-sm text-complexo-muted">
                       <li className="flex gap-3"><Check className="h-5 w-5 text-emerald-500 shrink-0" /> Você receberá os detalhes no seu email.</li>
@@ -208,7 +208,7 @@ export const Checkout = () => {
 
                   <button
                     onClick={() => navigate("/dashboard/aluno")}
-                    className="mt-10 inline-flex items-center gap-2 rounded-full bg-complexo-red px-8 py-4 font-semibold text-white transition-all hover:scale-105 hover:bg-complexo-red-bright"
+                    className="mt-10 inline-flex items-center gap-2 rounded-full bg-complexo-red px-8 py-4 font-semibold text-white hover:bg-complexo-red-bright"
                   >
                     Acessar meu Dashboard <ArrowRight className="h-5 w-5" />
                   </button>
@@ -217,16 +217,16 @@ export const Checkout = () => {
 
               {/* Navigation Actions */}
               {step > 0 && step < 4 && (
-                <div className="mt-10 flex items-center justify-between border-t border-white/10 pt-8">
+                <div className="mt-10 flex items-center justify-between border-t border-complexo-light/10 pt-8">
                   <button
                     onClick={() => setStep((s) => s - 1)}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-complexo-muted hover:text-white"
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-complexo-muted hover:text-complexo-light"
                   >
                     <ArrowLeft className="h-4 w-4" /> Voltar
                   </button>
                   <button
                     onClick={() => setStep((s) => s + 1)}
-                    className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-black transition-transform hover:scale-105"
+                    className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-black"
                   >
                     {step === 3 ? "Finalizar Compra" : "Continuar"} <ArrowRight className="h-5 w-5" />
                   </button>
@@ -238,7 +238,7 @@ export const Checkout = () => {
           {/* Sidebar Summary */}
           {step < 4 && (
             <div className="lg:col-span-1">
-              <div className="sticky top-32 rounded-3xl border border-white/10 bg-complexo-surface p-7">
+              <div className="sticky top-32 rounded-3xl border border-complexo-light/10 bg-complexo-surface p-7">
                 <h3 className="font-rajdhani text-xl font-bold uppercase mb-6">Resumo do Pedido</h3>
                 
                 <div className="space-y-6">
@@ -247,10 +247,10 @@ export const Checkout = () => {
                       <p className="text-xs font-bold uppercase tracking-wider text-complexo-muted mb-3">Assinatura</p>
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="font-bold text-white">{plan.name}</p>
+                          <p className="font-bold text-complexo-light">{plan.name}</p>
                           <p className="text-sm text-complexo-muted">Mensalidade</p>
                         </div>
-                        <span className="font-rajdhani text-xl font-bold text-white">R$ {plan.price}</span>
+                        <span className="font-rajdhani text-xl font-bold text-complexo-light">R$ {plan.price}</span>
                       </div>
                     </div>
                   )}
@@ -277,7 +277,7 @@ export const Checkout = () => {
                     </div>
                   )}
 
-                  <div className="border-t border-white/10 pt-6 space-y-3">
+                  <div className="border-t border-complexo-light/10 pt-6 space-y-3">
                     <div className="flex justify-between text-sm text-complexo-muted">
                       <span>Subtotal</span>
                       <span>R$ {total.toFixed(2)}</span>
@@ -292,7 +292,7 @@ export const Checkout = () => {
                     </div>
                   </div>
 
-                  <div className="border-t border-white/10 pt-6">
+                  <div className="border-t border-complexo-light/10 pt-6">
                     <div className="flex justify-between items-end">
                       <span className="font-bold uppercase text-complexo-muted">Total</span>
                       <span className="font-rajdhani text-4xl font-bold text-complexo-red">R$ {total.toFixed(2)}</span>
@@ -316,6 +316,6 @@ const Input = ({
 }: React.InputHTMLAttributes<HTMLInputElement>) => (
   <input
     {...props}
-    className={`w-full rounded-xl border border-white/10 bg-complexo-panel px-4 py-4 placeholder:text-complexo-muted/60 focus:border-complexo-red focus:outline-none text-white ${className}`}
+    className={`w-full rounded-xl border border-complexo-light/10 bg-complexo-panel px-4 py-4 placeholder:text-complexo-muted/60 focus:border-complexo-red focus:outline-none text-complexo-light ${className}`}
   />
 );

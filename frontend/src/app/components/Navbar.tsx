@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import clsx from "clsx";
 import { BoltMark } from "./BoltMark";
-import { MagneticButton } from "./MagneticButton";
+import { ThemeSwitch } from "./ThemeSwitch";
 import { useAppContext } from "../context";
 
 const NAV_LINKS = [
@@ -40,7 +40,7 @@ export const Navbar = () => {
         scrolled
           ? isPilates
             ? "border-b border-black/10 bg-pilates-bg/80 backdrop-blur-xl"
-            : "border-b border-white/10 bg-complexo-dark/80 backdrop-blur-xl"
+            : "border-b border-complexo-light/10 bg-complexo-dark/80 backdrop-blur-xl"
           : "border-b border-transparent",
         isPilates ? "text-pilates-text" : "text-complexo-light",
       )}
@@ -63,7 +63,7 @@ export const Navbar = () => {
                 key={link.path}
                 to={link.path}
                 className={clsx(
-                  "relative rounded-lg px-3.5 py-2 text-sm font-medium transition-colors",
+                  "relative rounded-lg px-3.5 py-2 text-sm font-medium",
                   active
                     ? "text-complexo-red"
                     : isPilates
@@ -88,8 +88,8 @@ export const Navbar = () => {
             onClick={() => setIsCartOpen(true)}
             aria-label="Carrinho"
             className={clsx(
-              "relative rounded-lg p-2 transition-colors",
-              isPilates ? "hover:bg-black/5" : "hover:bg-white/5",
+              "relative rounded-lg p-2",
+              isPilates ? "hover:bg-black/5" : "hover:bg-complexo-light/5",
             )}
           >
             <ShoppingBag className="h-5 w-5" />
@@ -99,22 +99,23 @@ export const Navbar = () => {
               </span>
             )}
           </button>
-          <MagneticButton
-            as={Link}
+          {!isPilates && <ThemeSwitch />}
+          <Link
             to="/planos"
-            className="rounded-full bg-complexo-red px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-complexo-red-bright"
+            className="rounded-full bg-complexo-red px-5 py-2.5 text-sm font-semibold text-white hover:bg-complexo-red-bright"
           >
             Matricule-se
-          </MagneticButton>
+          </Link>
         </div>
 
         <div className="flex items-center gap-3 lg:hidden">
+          {!isPilates && <ThemeSwitch />}
           <button
             onClick={() => setIsCartOpen(true)}
             aria-label="Carrinho"
             className={clsx(
-              "relative rounded-lg p-2 transition-colors",
-              isPilates ? "hover:bg-black/5" : "hover:bg-white/5",
+              "relative rounded-lg p-2",
+              isPilates ? "hover:bg-black/5" : "hover:bg-complexo-light/5",
             )}
           >
             <ShoppingBag className="h-5 w-5" />

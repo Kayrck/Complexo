@@ -34,7 +34,7 @@ export const Contato = () => {
                   e.preventDefault();
                   setSent(true);
                 }}
-                className="space-y-5 rounded-2xl border border-white/10 bg-complexo-surface p-7"
+                className="space-y-5 rounded-2xl border border-complexo-light/10 bg-complexo-surface p-7"
               >
                 <Field label="Nome">
                   <input required className={inputCls} placeholder="Seu nome" />
@@ -60,13 +60,13 @@ export const Contato = () => {
                 </Field>
                 <button
                   type="submit"
-                  className="w-full rounded-full bg-complexo-red px-7 py-4 font-semibold text-white transition-colors hover:bg-complexo-red-bright"
+                  className="w-full rounded-full bg-complexo-red px-7 py-4 font-semibold text-white hover:bg-complexo-red-bright"
                 >
                   Enviar mensagem
                 </button>
               </form>
             ) : (
-              <div className="flex h-full flex-col items-center justify-center gap-4 rounded-2xl border border-white/10 bg-complexo-surface p-12 text-center">
+              <div className="flex h-full flex-col items-center justify-center gap-4 rounded-2xl border border-complexo-light/10 bg-complexo-surface p-12 text-center">
                 <span className="flex h-14 w-14 items-center justify-center rounded-full bg-complexo-red text-white">
                   <Check className="h-7 w-7" />
                 </span>
@@ -84,7 +84,7 @@ export const Contato = () => {
               {INFO.map((item) => (
                 <div
                   key={item.label}
-                  className="flex items-start gap-4 rounded-2xl border border-white/10 bg-complexo-surface p-6"
+                  className="flex items-start gap-4 rounded-2xl border border-complexo-light/10 bg-complexo-surface p-6"
                 >
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-complexo-red/10 text-complexo-red">
                     <item.icon className="h-5 w-5" />
@@ -97,7 +97,7 @@ export const Contato = () => {
                   </div>
                 </div>
               ))}
-              <div className="overflow-hidden rounded-2xl border border-white/10">
+              <div className="overflow-hidden rounded-2xl border border-complexo-light/10">
                 <iframe
                   title="Mapa Complexo"
                   className="h-56 w-full grayscale"
@@ -114,7 +114,7 @@ export const Contato = () => {
 };
 
 const inputCls =
-  "w-full rounded-xl border border-white/10 bg-complexo-panel px-4 py-3 text-complexo-light placeholder:text-complexo-muted/60 focus:border-complexo-red focus:outline-none";
+  "w-full rounded-xl border border-complexo-light/10 bg-complexo-panel px-4 py-3 text-complexo-light placeholder:text-complexo-muted/60 focus:border-complexo-red focus:outline-none";
 
 const Field = ({ label, children }: { label: string; children: React.ReactNode }) => (
   <label className="block">

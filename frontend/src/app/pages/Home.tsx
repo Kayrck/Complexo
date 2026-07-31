@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import { Bolt3D } from "../components/Bolt3D";
 import { Reveal } from "../components/Reveal";
-import { MagneticButton } from "../components/MagneticButton";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { PLANS, PRODUCTS, UNIVERSE } from "../data";
 
@@ -46,7 +45,7 @@ const Hero = () => (
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs uppercase tracking-widest text-complexo-muted"
+          className="inline-flex items-center gap-2 rounded-full border border-complexo-light/10 bg-complexo-light/5 px-3 py-1.5 font-mono text-xs uppercase tracking-widest text-complexo-muted"
         >
           <span className="h-1.5 w-1.5 rounded-full bg-complexo-red" />
           O ecossistema fitness de Guaiúba
@@ -81,21 +80,19 @@ const Hero = () => (
           transition={{ duration: 0.7, delay: 0.25 }}
           className="mt-9 flex flex-col gap-3 sm:flex-row"
         >
-          <MagneticButton
-            as={Link}
+          <Link
             to="/planos"
-            className="group inline-flex items-center justify-center gap-2 rounded-full bg-complexo-red px-7 py-3.5 font-semibold text-white transition-colors hover:bg-complexo-red-bright"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-complexo-red px-7 py-3.5 font-semibold text-white hover:bg-complexo-red-bright"
           >
             Matricule-se
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-          </MagneticButton>
-          <MagneticButton
-            as={Link}
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+          <Link
             to="/academia"
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-7 py-3.5 font-semibold text-complexo-light transition-colors hover:bg-white/5"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-complexo-light/15 px-7 py-3.5 font-semibold text-complexo-light hover:bg-complexo-light/5"
           >
             Conhecer a estrutura
-          </MagneticButton>
+          </Link>
         </motion.div>
 
         <motion.div
@@ -118,7 +115,7 @@ const Hero = () => (
         initial={{ opacity: 0, scale: 0.92 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, delay: 0.2 }}
-        className="relative h-[360px] sm:h-[460px] lg:h-[600px]"
+        className="relative h-[260px] sm:h-[320px] lg:h-[420px]"
       >
         <Bolt3D className="h-full w-full" />
       </motion.div>
@@ -136,8 +133,8 @@ const STATS = [
 ];
 
 const StatStrip = () => (
-  <section className="border-y border-white/10 bg-complexo-panel">
-    <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-white/10 px-5 lg:grid-cols-4 lg:px-8">
+  <section className="border-y border-complexo-light/10 bg-complexo-panel">
+    <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-complexo-light/10 px-5 lg:grid-cols-4 lg:px-8">
       {STATS.map((s) => (
         <div key={s.label} className="flex flex-col items-center gap-1 py-8">
           <span className="font-rajdhani text-3xl font-bold lg:text-4xl">{s.value}</span>
@@ -172,12 +169,12 @@ const Universo = () => (
           <Reveal key={biz.id} delay={i * 0.08}>
             <Link
               to={biz.to}
-              className="group relative block h-[440px] overflow-hidden rounded-2xl border border-white/10 bg-complexo-surface"
+              className="relative block h-[440px] overflow-hidden rounded-2xl border border-complexo-light/10 bg-complexo-surface"
             >
               <ImageWithFallback
                 src={biz.image}
                 alt={biz.name}
-                className="absolute inset-0 h-full w-full object-cover opacity-50 grayscale transition-all duration-700 group-hover:scale-105 group-hover:opacity-70 group-hover:grayscale-0"
+                className="absolute inset-0 h-full w-full object-cover opacity-70"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-complexo-dark via-complexo-dark/40 to-transparent" />
               <div className="relative flex h-full flex-col justify-end p-7">
@@ -188,7 +185,7 @@ const Universo = () => (
                 <p className="mt-2 max-w-xs text-sm text-complexo-light/70">{biz.desc}</p>
                 <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-complexo-red">
                   Explorar
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight className="h-4 w-4" />
                 </span>
               </div>
             </Link>
@@ -220,7 +217,7 @@ const PILLARS = [
 ];
 
 const Experiencia = () => (
-  <section className="border-t border-white/10 bg-complexo-panel py-24 lg:py-32">
+  <section className="border-t border-complexo-light/10 bg-complexo-panel py-24 lg:py-32">
     <div className="mx-auto max-w-7xl px-5 lg:px-8">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
         <Reveal>
@@ -235,19 +232,18 @@ const Experiencia = () => (
             nutrição e recuperação trabalham juntos. É isso que conecta todo o
             ecossistema Complexo.
           </p>
-          <MagneticButton
-            as={Link}
+          <Link
             to="/academia"
-            className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 font-semibold transition-colors hover:bg-white/5"
+            className="mt-8 inline-flex items-center gap-2 rounded-full border border-complexo-light/15 px-6 py-3 font-semibold hover:bg-complexo-light/5"
           >
             Como funciona <ArrowRight className="h-4 w-4" />
-          </MagneticButton>
+          </Link>
         </Reveal>
 
         <div className="flex flex-col gap-4">
           {PILLARS.map((p, i) => (
             <Reveal key={p.title} delay={i * 0.08}>
-              <div className="group flex gap-5 rounded-2xl border border-white/10 bg-complexo-surface p-6 transition-colors hover:border-complexo-red/40">
+              <div className="group flex gap-5 rounded-2xl border border-complexo-light/10 bg-complexo-surface p-6 transition-colors hover:border-complexo-red/40">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-complexo-red/10 text-complexo-red transition-colors group-hover:bg-complexo-red group-hover:text-white">
                   <p.icon className="h-6 w-6" />
                 </span>
@@ -286,7 +282,7 @@ const PlanosPreview = () => (
               className={`relative flex h-full flex-col rounded-2xl border p-7 transition-transform duration-300 hover:-translate-y-1 ${
                 plan.popular
                   ? "border-complexo-red bg-complexo-surface glow-red"
-                  : "border-white/10 bg-complexo-surface"
+                  : "border-complexo-light/10 bg-complexo-surface"
               }`}
             >
               {plan.popular && (
@@ -310,10 +306,10 @@ const PlanosPreview = () => (
               </ul>
               <Link
                 to={`/cadastro`}
-                className={`mt-7 inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold transition-colors ${
+                className={`mt-7 inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold ${
                   plan.popular
                     ? "bg-complexo-red text-white hover:bg-complexo-red-bright"
-                    : "border border-white/15 text-complexo-light hover:bg-white/5"
+                    : "border border-complexo-light/15 text-complexo-light hover:bg-complexo-light/5"
                 }`}
               >
                 Assinar {plan.name}
@@ -338,7 +334,7 @@ const PlanosPreview = () => (
 /* ---------------------------- LOJA ---------------------------- */
 
 const Loja = () => (
-  <section className="border-t border-white/10 bg-complexo-panel py-24 lg:py-32">
+  <section className="border-t border-complexo-light/10 bg-complexo-panel py-24 lg:py-32">
     <div className="mx-auto max-w-7xl px-5 lg:px-8">
       <Reveal className="flex flex-wrap items-end justify-between gap-4">
         <div className="max-w-xl">
@@ -362,17 +358,17 @@ const Loja = () => (
         <Link
           key={p.id}
           to="/suplementos"
-          className="group relative w-64 shrink-0 snap-start overflow-hidden rounded-2xl border border-white/10 bg-complexo-surface"
+          className="relative w-64 shrink-0 snap-start overflow-hidden rounded-2xl border border-complexo-light/10 bg-complexo-surface"
         >
           <div className="relative aspect-[4/5] overflow-hidden">
             <div
-              className="absolute inset-0 opacity-30 blur-2xl transition-opacity group-hover:opacity-50"
+              className="absolute inset-0 opacity-45 blur-2xl"
               style={{ background: p.accent }}
             />
             <ImageWithFallback
               src={p.image}
               alt={p.name}
-              className="relative h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-1"
+              className="relative h-full w-full object-cover"
             />
           </div>
           <div className="p-5">
@@ -413,13 +409,12 @@ const PilatesTease = () => (
           Um ambiente leve e acolhedor para mobilidade, postura e recuperação.
           Porque cuidar do corpo também é cuidar de como você se sente.
         </p>
-        <MagneticButton
-          as={Link}
+        <Link
           to="/pilates"
-          className="mt-8 inline-flex items-center gap-2 rounded-full bg-pilates-text px-7 py-3.5 font-semibold text-pilates-bg transition-colors hover:bg-complexo-red hover:text-white"
+          className="mt-8 inline-flex items-center gap-2 rounded-full bg-pilates-text px-7 py-3.5 font-semibold text-pilates-bg hover:bg-complexo-red hover:text-white"
         >
           Agendar uma aula <ArrowRight className="h-4 w-4" />
-        </MagneticButton>
+        </Link>
       </Reveal>
     </div>
   </section>
@@ -452,7 +447,7 @@ const TESTIMONIALS = [
 ];
 
 const Depoimentos = () => (
-  <section className="border-t border-white/10 bg-complexo-dark py-24 lg:py-32">
+  <section className="border-t border-complexo-light/10 bg-complexo-dark py-24 lg:py-32">
     <div className="mx-auto max-w-7xl px-5 lg:px-8">
       <Reveal className="max-w-2xl">
         <p className="font-mono text-xs uppercase tracking-widest text-complexo-red">
@@ -466,7 +461,7 @@ const Depoimentos = () => (
       <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
         {TESTIMONIALS.map((t, i) => (
           <Reveal key={t.name} delay={i * 0.08}>
-            <figure className="flex h-full flex-col rounded-2xl border border-white/10 bg-complexo-surface p-7">
+            <figure className="flex h-full flex-col rounded-2xl border border-complexo-light/10 bg-complexo-surface p-7">
               <Quote className="h-7 w-7 text-complexo-red" />
               <blockquote className="mt-4 flex-1 text-lg leading-relaxed text-complexo-light/90">
                 “{t.quote}”
@@ -505,20 +500,18 @@ const CTAFinal = () => (
         Comece hoje. Primeira semana com avaliação física gratuita.
       </p>
       <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-        <MagneticButton
-          as={Link}
+        <Link
           to="/planos"
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-complexo-dark px-8 py-4 font-semibold text-white transition-colors hover:bg-black"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-black px-8 py-4 font-semibold text-white hover:bg-black/80"
         >
           Matricule-se agora <ArrowRight className="h-4 w-4" />
-        </MagneticButton>
-        <MagneticButton
-          as={Link}
+        </Link>
+        <Link
           to="/contato"
-          className="inline-flex items-center justify-center rounded-full border border-white/40 px-8 py-4 font-semibold text-white transition-colors hover:bg-white/10"
+          className="inline-flex items-center justify-center rounded-full border border-white/40 px-8 py-4 font-semibold text-white hover:bg-white/10"
         >
           Falar com a equipe
-        </MagneticButton>
+        </Link>
       </div>
     </Reveal>
   </section>

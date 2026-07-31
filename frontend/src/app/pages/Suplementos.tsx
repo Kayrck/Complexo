@@ -38,10 +38,10 @@ export const Suplementos = () => {
           </div>
           <button 
             onClick={() => setIsCartOpen(true)}
-            className={`flex items-center gap-2 rounded-full border border-white/10 px-5 py-3 transition-colors ${
+            className={`flex items-center gap-2 rounded-full border border-complexo-light/10 px-5 py-3 ${
               cartItemCount > 0 
                 ? "bg-complexo-red text-white hover:bg-complexo-red-bright" 
-                : "bg-complexo-surface text-complexo-muted hover:bg-white/5 hover:text-white"
+                : "bg-complexo-surface text-complexo-muted hover:bg-complexo-light/5 hover:text-complexo-light"
             }`}
           >
             <ShoppingBag className={`h-5 w-5 ${cartItemCount > 0 ? "" : "text-complexo-red"}`} />
@@ -57,10 +57,10 @@ export const Suplementos = () => {
             <button
               key={c}
               onClick={() => setCategory(c)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+              className={`rounded-full px-4 py-2 text-sm font-medium ${
                 category === c
                   ? "bg-complexo-red text-white"
-                  : "border border-white/10 text-complexo-muted hover:text-complexo-light hover:bg-white/5"
+                  : "border border-complexo-light/10 text-complexo-muted hover:text-complexo-light hover:bg-complexo-light/5"
               }`}
             >
               {c}
@@ -101,7 +101,7 @@ const ProductCard = ({
   onToggleFavorite: () => void;
 }) => (
   <div
-    className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-complexo-surface"
+    className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-complexo-light/10 bg-complexo-surface"
     style={{ perspective: "1000px" }}
   >
     <div className="relative aspect-[4/5] overflow-hidden bg-black/50">
@@ -117,7 +117,7 @@ const ProductCard = ({
       <div className="absolute right-3 top-3 flex flex-col gap-2">
         <button 
           onClick={onToggleFavorite}
-          className={`flex h-8 w-8 items-center justify-center rounded-full bg-black/50 backdrop-blur transition-colors ${
+          className={`flex h-8 w-8 items-center justify-center rounded-full bg-black/50 backdrop-blur ${
             isFavorite ? "text-complexo-red hover:bg-complexo-red hover:text-white" : "text-white hover:text-complexo-red"
           }`}
         >
@@ -141,7 +141,7 @@ const ProductCard = ({
         <span className="font-rajdhani text-2xl font-bold">R${product.price}</span>
         <button
           onClick={onAdd}
-          className="inline-flex items-center gap-1.5 rounded-full bg-complexo-red px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-complexo-red-bright"
+          className="inline-flex items-center gap-1.5 rounded-full bg-complexo-red px-4 py-2 text-sm font-semibold text-white hover:bg-complexo-red-bright"
         >
           <Plus className="h-4 w-4" /> Adicionar
         </button>

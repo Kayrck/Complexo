@@ -21,18 +21,18 @@ export const DashboardAdmin = () => {
   return (
     <div className="flex min-h-screen bg-complexo-dark text-sm">
       {/* Sidebar */}
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-white/10 bg-[#0a0a0a] md:flex">
-        <div className="flex h-16 items-center px-6 border-b border-white/10">
-          <Link to="/" className="font-rajdhani text-xl font-bold uppercase tracking-wider text-white flex items-center gap-2">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-complexo-light/10 bg-[#0a0a0a] md:flex">
+        <div className="flex h-16 items-center px-6 border-b border-complexo-light/10">
+          <Link to="/" className="font-rajdhani text-xl font-bold uppercase tracking-wider text-complexo-light flex items-center gap-2">
             <div className="h-6 w-6 rounded bg-complexo-red"></div>
             Admin
           </Link>
         </div>
         <div className="p-4">
-          <div className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/5 p-3">
+          <div className="flex items-center gap-3 rounded-lg border border-complexo-light/10 bg-complexo-light/5 p-3">
             <div className="h-8 w-8 rounded-full bg-complexo-red/20 flex items-center justify-center text-complexo-red font-bold">JD</div>
             <div className="flex-1 overflow-hidden">
-              <p className="truncate font-semibold text-white">João Diretor</p>
+              <p className="truncate font-semibold text-complexo-light">João Diretor</p>
               <p className="truncate text-xs text-complexo-muted">joao@complexo.com</p>
             </div>
           </div>
@@ -44,9 +44,9 @@ export const DashboardAdmin = () => {
           <NavItem active={activeTab === "loja"} onClick={() => setActiveTab("loja")} icon={<ShoppingBag />} label="Loja & Suplementos" />
           <NavItem active={activeTab === "pilates"} onClick={() => setActiveTab("pilates")} icon={<HeartPulse />} label="Pilates" />
         </nav>
-        <div className="border-t border-white/10 p-4">
+        <div className="border-t border-complexo-light/10 p-4">
           <NavItem active={activeTab === "config"} onClick={() => setActiveTab("config")} icon={<Settings />} label="Configurações" />
-          <Link to="/" className="flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-complexo-muted hover:bg-white/5 hover:text-white transition-colors">
+          <Link to="/" className="flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-complexo-muted hover:bg-complexo-light/5 hover:text-complexo-light">
             <LogOut className="h-4 w-4" /> Sair
           </Link>
         </div>
@@ -55,15 +55,15 @@ export const DashboardAdmin = () => {
       {/* Main Content */}
       <main className="flex-1 md:pl-64">
         {/* Header */}
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-white/10 bg-[#0a0a0a]/80 px-6 backdrop-blur-md">
-          <h1 className="font-semibold text-white capitalize">{activeTab.replace("-", " ")}</h1>
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-complexo-light/10 bg-[#0a0a0a]/80 px-6 backdrop-blur-md">
+          <h1 className="font-semibold text-complexo-light capitalize">{activeTab.replace("-", " ")}</h1>
           <div className="flex items-center gap-4">
             <div className="relative hidden sm:block">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-complexo-muted" />
               <input 
                 type="text" 
                 placeholder="Buscar alunos, pedidos..." 
-                className="h-9 w-64 rounded-md border border-white/10 bg-white/5 pl-9 pr-4 text-sm text-white placeholder:text-complexo-muted focus:border-complexo-red focus:outline-none"
+                className="h-9 w-64 rounded-md border border-complexo-light/10 bg-complexo-light/5 pl-9 pr-4 text-sm text-complexo-light placeholder:text-complexo-muted focus:border-complexo-red focus:outline-none"
               />
             </div>
             <button className="flex h-9 items-center gap-2 rounded-md bg-complexo-red px-4 text-sm font-semibold text-white hover:bg-complexo-red-bright">
@@ -85,10 +85,10 @@ export const DashboardAdmin = () => {
           <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
             
             {/* Chart */}
-            <div className="rounded-xl border border-white/10 bg-[#0f0f0f] p-5 xl:col-span-2">
+            <div className="rounded-xl border border-complexo-light/10 bg-[#0f0f0f] p-5 xl:col-span-2">
               <div className="mb-4 flex items-center justify-between">
-                <h2 className="font-semibold text-white">Receita por Categoria</h2>
-                <select className="rounded-md border border-white/10 bg-white/5 px-2 py-1 text-xs text-white outline-none">
+                <h2 className="font-semibold text-complexo-light">Receita por Categoria</h2>
+                <select className="rounded-md border border-complexo-light/10 bg-complexo-light/5 px-2 py-1 text-xs text-complexo-light outline-none">
                   <option>Este Ano</option>
                 </select>
               </div>
@@ -111,8 +111,8 @@ export const DashboardAdmin = () => {
             </div>
 
             {/* Recent Activity */}
-            <div className="rounded-xl border border-white/10 bg-[#0f0f0f] p-5">
-              <h2 className="mb-4 font-semibold text-white">Atividade Recente</h2>
+            <div className="rounded-xl border border-complexo-light/10 bg-[#0f0f0f] p-5">
+              <h2 className="mb-4 font-semibold text-complexo-light">Atividade Recente</h2>
               <div className="space-y-4">
                 {[
                   { icon: <UserPlus className="text-emerald-500" />, title: "Novo aluno: Carlos Silva", time: "Há 10 min" },
@@ -122,32 +122,32 @@ export const DashboardAdmin = () => {
                   { icon: <HeartPulse className="text-pink-500" />, title: "Agendamento Pilates", time: "Há 4 horas" },
                 ].map((item, i) => (
                   <div key={i} className="flex gap-3">
-                    <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/5">
+                    <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-complexo-light/5">
                       {item.icon}
                     </div>
                     <div>
-                      <p className="text-white">{item.title}</p>
+                      <p className="text-complexo-light">{item.title}</p>
                       <p className="text-xs text-complexo-muted">{item.time}</p>
                     </div>
                   </div>
                 ))}
               </div>
-              <button className="mt-6 w-full rounded-md border border-white/10 py-2 text-center text-xs font-semibold hover:bg-white/5">
+              <button className="mt-6 w-full rounded-md border border-complexo-light/10 py-2 text-center text-xs font-semibold hover:bg-complexo-light/5">
                 Ver tudo
               </button>
             </div>
 
             {/* Table */}
-            <div className="rounded-xl border border-white/10 bg-[#0f0f0f] xl:col-span-3">
-              <div className="flex items-center justify-between border-b border-white/10 p-5">
-                <h2 className="font-semibold text-white">Últimos Cadastros</h2>
-                <button className="flex items-center gap-2 rounded-md border border-white/10 px-3 py-1.5 text-xs font-semibold hover:bg-white/5">
+            <div className="rounded-xl border border-complexo-light/10 bg-[#0f0f0f] xl:col-span-3">
+              <div className="flex items-center justify-between border-b border-complexo-light/10 p-5">
+                <h2 className="font-semibold text-complexo-light">Últimos Cadastros</h2>
+                <button className="flex items-center gap-2 rounded-md border border-complexo-light/10 px-3 py-1.5 text-xs font-semibold hover:bg-complexo-light/5">
                   <Filter className="h-3 w-3" /> Filtrar
                 </button>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
-                  <thead className="bg-white/5 text-xs uppercase text-complexo-muted">
+                  <thead className="bg-complexo-light/5 text-xs uppercase text-complexo-muted">
                     <tr>
                       <th className="px-5 py-3 font-medium">Aluno</th>
                       <th className="px-5 py-3 font-medium">Plano</th>
@@ -156,16 +156,16 @@ export const DashboardAdmin = () => {
                       <th className="px-5 py-3 font-medium text-right">Ações</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/10">
+                  <tbody className="divide-y divide-complexo-light/10">
                     {[
                       { name: "Marcos Andrade", email: "marcos@email.com", plan: "Performance", status: "Ativo", date: "24/06/2026" },
                       { name: "Julia Santos", email: "julia@email.com", plan: "Elite", status: "Ativo", date: "23/06/2026" },
                       { name: "Roberto Lima", email: "roberto@email.com", plan: "Essencial", status: "Pendente", date: "22/06/2026" },
                       { name: "Fernanda Costa", email: "fernanda@email.com", plan: "Performance", status: "Inativo", date: "20/06/2026" },
                     ].map((row, i) => (
-                      <tr key={i} className="hover:bg-white/[0.02] transition-colors">
+                      <tr key={i} className="hover:bg-complexo-light/[0.02] transition-colors">
                         <td className="px-5 py-3">
-                          <p className="font-medium text-white">{row.name}</p>
+                          <p className="font-medium text-complexo-light">{row.name}</p>
                           <p className="text-xs text-complexo-muted">{row.email}</p>
                         </td>
                         <td className="px-5 py-3">{row.plan}</td>
@@ -180,7 +180,7 @@ export const DashboardAdmin = () => {
                         </td>
                         <td className="px-5 py-3 text-complexo-muted">{row.date}</td>
                         <td className="px-5 py-3 text-right">
-                          <button className="text-complexo-muted hover:text-white"><MoreVertical className="h-4 w-4 inline" /></button>
+                          <button className="text-complexo-muted hover:text-complexo-light"><MoreVertical className="h-4 w-4 inline" /></button>
                         </td>
                       </tr>
                     ))}
@@ -203,8 +203,8 @@ const UserMinus = ({ className }: { className: string }) => <Users className={cl
 const NavItem = ({ active, onClick, icon, label }: { active: boolean, onClick: () => void, icon: React.ReactNode, label: string }) => (
   <button
     onClick={onClick}
-    className={`flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-      active ? "bg-white/10 text-white" : "text-complexo-muted hover:bg-white/5 hover:text-white"
+    className={`flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium ${
+      active ? "bg-complexo-light/10 text-complexo-light" : "text-complexo-muted hover:bg-complexo-light/5 hover:text-complexo-light"
     }`}
   >
     <span className="h-4 w-4">{icon}</span> {label}
@@ -212,10 +212,10 @@ const NavItem = ({ active, onClick, icon, label }: { active: boolean, onClick: (
 );
 
 const KpiCard = ({ title, value, trend, isPositive }: { title: string, value: string, trend: string, isPositive: boolean }) => (
-  <div className="rounded-xl border border-white/10 bg-[#0f0f0f] p-5">
+  <div className="rounded-xl border border-complexo-light/10 bg-[#0f0f0f] p-5">
     <p className="text-xs font-medium text-complexo-muted">{title}</p>
     <div className="mt-2 flex items-end justify-between">
-      <p className="text-2xl font-bold text-white">{value}</p>
+      <p className="text-2xl font-bold text-complexo-light">{value}</p>
       <div className={`flex items-center gap-1 text-xs font-medium ${isPositive ? "text-emerald-500" : "text-red-500"}`}>
         {isPositive ? <ArrowUpRight className="h-3 w-3" /> : <ArrowDownRight className="h-3 w-3" />}
         {trend}

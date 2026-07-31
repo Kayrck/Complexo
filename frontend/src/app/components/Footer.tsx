@@ -23,7 +23,7 @@ const COLUMNS = [
 ];
 
 export const Footer = () => (
-  <footer className="border-t border-white/10 bg-complexo-dark text-complexo-light">
+  <footer className="border-t border-complexo-light/10 bg-complexo-dark text-complexo-light">
     <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8">
       <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
         <div className="md:col-span-2">
@@ -45,7 +45,7 @@ export const Footer = () => (
               target="_blank"
               rel="noreferrer"
               aria-label="Instagram"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-complexo-light transition-colors hover:border-complexo-red hover:bg-complexo-red"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-complexo-light/10 text-complexo-light hover:border-complexo-red hover:bg-complexo-red"
             >
               <Instagram className="h-5 w-5" />
             </a>
@@ -73,7 +73,7 @@ export const Footer = () => (
         ))}
       </div>
 
-      <div className="mt-12 grid grid-cols-1 gap-6 border-t border-white/10 pt-8 text-sm text-complexo-muted sm:grid-cols-2">
+      <div className="mt-12 grid grid-cols-1 gap-6 border-t border-complexo-light/10 pt-8 text-sm text-complexo-muted sm:grid-cols-2">
         <div className="flex items-start gap-3">
           <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-complexo-red" />
           <span>
@@ -90,7 +90,7 @@ export const Footer = () => (
         </div>
       </div>
 
-      <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-complexo-muted sm:flex-row">
+      <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-complexo-light/10 pt-6 text-xs text-complexo-muted sm:flex-row">
         <p>© 2026 Grupo Complexo. Todos os direitos reservados.</p>
         <div className="flex gap-6">
           <a href="#" className="hover:text-complexo-red">Privacidade</a>

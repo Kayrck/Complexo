@@ -1,10 +1,16 @@
 import { Dumbbell, ShoppingBag, HeartPulse } from "lucide-react";
-import colagenoImg from "../imports/Col_geno_Hidrolisado_com__cido_Hialur_nico_Premium_Sabor_Laranja_Arium_Suplementos_300g.jpg";
-import multiImg from "../imports/Multivitam_nico_Vitaplex_Multi-Vitamin_Complex_90C_-_Espartanos.jpg";
-import bcaaImg from "../imports/Bcaa_Reinforce_8_1_1_Bluster_Nutrition_-_300g.jpg";
-import preTreinoImg from "../imports/_vora_XT_Pr_-Treino__O_Suplemento_que_Vai_Revolucionar_Seu_Treino_.jpg";
-import creatinaImg from "../imports/CREATINA_MONOHIDRATADA_100__PURA___MUNDIAL_NUTRITION.jpg";
-import wheyImg from "../imports/_______Whey_Protein_Concentrado_Integralm_dica_900g___Ganho_de_Massa_Muscular_e_Recupera__o_R_pida.jpg";
+
+/** Fotos genéricas de banco de imagens (Unsplash, mesma licença já usada no
+ * projeto) — não são as embalagens reais dos produtos, só ilustrativas. */
+const wheyImg = "https://images.unsplash.com/photo-1775199603318-7f8a9a63b40d?w=600&h=750&fit=crop&auto=format";
+const creatinaImg = "https://images.unsplash.com/photo-1724160167630-a33086ddb552?w=600&h=750&fit=crop&auto=format";
+const preTreinoImg = "https://images.unsplash.com/photo-1704650311162-153bbf7f17b0?w=600&h=750&fit=crop&auto=format";
+const bcaaImg = "https://images.unsplash.com/photo-1693996046865-19217d179161?w=600&h=750&fit=crop&auto=format";
+const multiImg = "https://images.unsplash.com/photo-1596177583101-26b7dada4f5c?w=600&h=750&fit=crop&auto=format";
+const colagenoImg = "https://images.unsplash.com/photo-1693996046506-b6571eaa8259?w=600&h=750&fit=crop&auto=format";
+const omegaImg = "https://images.unsplash.com/photo-1743535681049-512db5983e73?w=600&h=750&fit=crop&auto=format";
+const hipercaloricoImg = "https://images.unsplash.com/photo-1693996045346-d0a9b9470909?w=600&h=750&fit=crop&auto=format";
+const glutaminaImg = "https://images.unsplash.com/photo-1704650311190-7eeb9c4f6e11?w=600&h=750&fit=crop&auto=format";
 
 export interface Plan {
   id: string;
@@ -133,6 +139,33 @@ export const PRODUCTS: Product[] = [
     accent: "#db2777",
     image: colagenoImg,
     blurb: "Articulações, pele e tecidos saudáveis.",
+  },
+  {
+    id: "omega-3",
+    name: "Ômega 3",
+    category: "Saúde",
+    price: 89,
+    accent: "#0891b2",
+    image: omegaImg,
+    blurb: "Saúde cardiovascular e função cerebral em dia.",
+  },
+  {
+    id: "hipercalorico",
+    name: "Hipercalórico Mass",
+    category: "Performance",
+    price: 159,
+    accent: "#ca8a04",
+    image: hipercaloricoImg,
+    blurb: "Calorias de qualidade para ganho de massa real.",
+  },
+  {
+    id: "glutamina",
+    name: "Glutamina Pura",
+    category: "Recuperação",
+    price: 94,
+    accent: "#65a30d",
+    image: glutaminaImg,
+    blurb: "Reduz o catabolismo e acelera a recuperação muscular.",
   },
 ];
 

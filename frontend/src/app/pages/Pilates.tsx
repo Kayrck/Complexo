@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { Check, Wind, HeartPulse, Sparkles, ArrowRight } from "lucide-react";
 import { Reveal } from "../components/Reveal";
-import { MagneticButton } from "../components/MagneticButton";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
 const BENEFITS = [
@@ -35,13 +34,12 @@ export const Pilates = () => {
               Um estúdio leve e acolhedor para cuidar do corpo com método e
               atenção individual. O contraponto perfeito ao treino intenso.
             </p>
-            <MagneticButton
-              as="a"
+            <a
               href="#agendar"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-pilates-text px-7 py-3.5 font-semibold text-pilates-bg transition-colors hover:bg-complexo-red hover:text-white"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-pilates-text px-7 py-3.5 font-semibold text-pilates-bg hover:bg-complexo-red hover:text-white"
             >
               Agendar aula experimental <ArrowRight className="h-4 w-4" />
-            </MagneticButton>
+            </a>
           </Reveal>
           <Reveal delay={0.1}>
             <div className="aspect-[4/5] overflow-hidden rounded-3xl bg-pilates-surface">
@@ -94,7 +92,7 @@ export const Pilates = () => {
                       <button
                         key={d}
                         onClick={() => setDay(d)}
-                        className={`h-12 w-14 rounded-xl text-sm font-semibold transition-colors ${
+                        className={`h-12 w-14 rounded-xl text-sm font-semibold ${
                           day === d
                             ? "bg-pilates-text text-pilates-bg"
                             : "bg-pilates-surface text-pilates-text hover:bg-pilates-surface/70"
@@ -113,7 +111,7 @@ export const Pilates = () => {
                       <button
                         key={t}
                         onClick={() => setTime(t)}
-                        className={`h-12 rounded-xl text-sm font-semibold transition-colors ${
+                        className={`h-12 rounded-xl text-sm font-semibold ${
                           time === t
                             ? "bg-complexo-red text-white"
                             : "bg-pilates-surface text-pilates-text hover:bg-pilates-surface/70"
@@ -127,7 +125,7 @@ export const Pilates = () => {
                   <button
                     onClick={() => time && setBooked(true)}
                     disabled={!time}
-                    className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-complexo-red px-7 py-4 font-semibold text-white transition-colors enabled:hover:bg-complexo-red-bright disabled:opacity-40"
+                    className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-complexo-red px-7 py-4 font-semibold text-white enabled:hover:bg-complexo-red-bright disabled:opacity-40"
                   >
                     {time ? `Confirmar ${day} às ${time}` : "Selecione um horário"}
                   </button>

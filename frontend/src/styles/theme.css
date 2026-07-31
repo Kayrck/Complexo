@@ -1,37 +1,48 @@
 @import "tailwindcss";
 
+/* Enables the `dark:` variant + lets .dark below override @theme colors. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  /* Brand */
+  /* Brand — constant in both themes */
   --color-complexo-red: #E10600;
   --color-complexo-red-bright: #ff3b30;
-  --color-complexo-dark: #060607;
-  --color-complexo-panel: #0c0c0e;
-  --color-complexo-surface: #141417;
-  --color-complexo-gray: #1c1c20;
-  --color-complexo-light: #FAFAFA;
-  --color-complexo-muted: #8b8b93;
 
-  /* Pilates — lighter, warmer, more human */
+  /*
+   * Adaptive palette. Values below are LIGHT mode (the default — no .dark
+   * class on <html>). The .dark block further down overrides every one of
+   * these with the original dark-mode values. Every page just keeps using
+   * bg-complexo-dark / text-complexo-light / etc — the token itself now
+   * carries the theme, so no className changes were needed page by page.
+   */
+  --color-complexo-dark: #F7F6F3;
+  --color-complexo-panel: #FFFFFF;
+  --color-complexo-surface: #F1F0EC;
+  --color-complexo-gray: #E7E5E0;
+  --color-complexo-light: #0c0c0d;
+  --color-complexo-muted: #6b6a65;
+
+  /* Pilates — always its own light, warm palette. Never flips with theme. */
   --color-pilates-bg: #F6F5F1;
   --color-pilates-surface: #ECEAE3;
   --color-pilates-text: #1b1b19;
   --color-pilates-muted: #6b6a63;
 
   /* shadcn-compatible aliases so any ui/* primitive stays on-brand */
-  --color-background: #060607;
-  --color-foreground: #FAFAFA;
-  --color-card: #0c0c0e;
-  --color-card-foreground: #FAFAFA;
+  --color-background: var(--color-complexo-dark);
+  --color-foreground: var(--color-complexo-light);
+  --color-card: var(--color-complexo-panel);
+  --color-card-foreground: var(--color-complexo-light);
   --color-primary: #E10600;
   --color-primary-foreground: #FFFFFF;
-  --color-secondary: #141417;
-  --color-secondary-foreground: #FAFAFA;
-  --color-muted: #141417;
-  --color-muted-foreground: #8b8b93;
+  --color-secondary: var(--color-complexo-surface);
+  --color-secondary-foreground: var(--color-complexo-light);
+  --color-muted: var(--color-complexo-surface);
+  --color-muted-foreground: var(--color-complexo-muted);
   --color-accent: #E10600;
   --color-accent-foreground: #FFFFFF;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-input: rgba(255, 255, 255, 0.12);
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-input: rgba(0, 0, 0, 0.12);
   --color-ring: #E10600;
 
   --font-outfit: "Outfit", sans-serif;
@@ -39,6 +50,18 @@
   --font-mono: "Geist Mono", monospace;
 
   --radius: 0.875rem;
+}
+
+.dark {
+  --color-complexo-dark: #060607;
+  --color-complexo-panel: #0c0c0e;
+  --color-complexo-surface: #141417;
+  --color-complexo-gray: #1c1c20;
+  --color-complexo-light: #FAFAFA;
+  --color-complexo-muted: #8b8b93;
+
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-input: rgba(255, 255, 255, 0.12);
 }
 
 @layer base {
@@ -69,18 +92,25 @@
   /* Discreet scrollbar — only really present while scrolling. */
   * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+    scrollbar-color: rgba(0, 0, 0, 0.18) transparent;
   }
   *::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
   *::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(0, 0, 0, 0.15);
     border-radius: 9999px;
   }
   *::-webkit-scrollbar-track {
     background: transparent;
+  }
+
+  .dark * {
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  }
+  .dark *::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
   }
 }
 
@@ -104,6 +134,11 @@
   /* Thin top hairline used to separate sections without heavy borders. */
   .hairline-t {
     border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  /* Gentle idle float — used for the app mockup, never on interactive controls. */
+  .animate-float {
+    animation: float-y 5s ease-in-out infinite;
   }
 }
 

@@ -61,7 +61,7 @@ export const Login = () => {
                 required
                 type="email"
                 placeholder="E-mail"
-                className="w-full rounded-xl border border-white/10 bg-complexo-surface py-3.5 pl-12 pr-4 placeholder:text-complexo-muted/60 focus:border-complexo-red focus:outline-none"
+                className="w-full rounded-xl border border-complexo-light/10 bg-complexo-surface py-3.5 pl-12 pr-4 placeholder:text-complexo-muted/60 focus:border-complexo-red focus:outline-none"
               />
             </div>
             <div className="relative">
@@ -70,12 +70,12 @@ export const Login = () => {
                 required
                 type="password"
                 placeholder="Senha"
-                className="w-full rounded-xl border border-white/10 bg-complexo-surface py-3.5 pl-12 pr-4 placeholder:text-complexo-muted/60 focus:border-complexo-red focus:outline-none"
+                className="w-full rounded-xl border border-complexo-light/10 bg-complexo-surface py-3.5 pl-12 pr-4 placeholder:text-complexo-muted/60 focus:border-complexo-red focus:outline-none"
               />
             </div>
             <button
               type="submit"
-              className="flex w-full items-center justify-center gap-2 rounded-full bg-complexo-red px-7 py-3.5 font-semibold text-white transition-colors hover:bg-complexo-red-bright"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-complexo-red px-7 py-3.5 font-semibold text-white hover:bg-complexo-red-bright"
             >
               {mode === "login" ? "Entrar" : "Criar conta"}
               <ArrowRight className="h-4 w-4" />

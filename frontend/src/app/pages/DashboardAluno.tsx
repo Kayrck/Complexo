@@ -21,9 +21,9 @@ export const DashboardAluno = () => {
   return (
     <div className="flex min-h-screen bg-complexo-dark">
       {/* Sidebar */}
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-white/10 bg-complexo-surface md:flex">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-complexo-light/10 bg-complexo-surface md:flex">
         <div className="flex h-20 items-center px-6">
-          <Link to="/" className="font-rajdhani text-2xl font-bold uppercase tracking-wider text-white">
+          <Link to="/" className="font-rajdhani text-2xl font-bold uppercase tracking-wider text-complexo-light">
             Complexo
           </Link>
         </div>
@@ -33,9 +33,9 @@ export const DashboardAluno = () => {
           <NavItem active={activeTab === "agenda"} onClick={() => setActiveTab("agenda")} icon={<Calendar />} label="Agenda" />
           <NavItem active={activeTab === "compras"} onClick={() => setActiveTab("compras")} icon={<ShoppingBag />} label="Minhas Compras" />
         </nav>
-        <div className="border-t border-white/10 p-4">
+        <div className="border-t border-complexo-light/10 p-4">
           <NavItem active={activeTab === "config"} onClick={() => setActiveTab("config")} icon={<Settings />} label="Configurações" />
-          <Link to="/" className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-complexo-muted hover:bg-white/5 hover:text-white transition-colors">
+          <Link to="/" className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-complexo-muted hover:bg-complexo-light/5 hover:text-complexo-light">
             <LogOut className="h-5 w-5" /> Sair
           </Link>
         </div>
@@ -47,15 +47,15 @@ export const DashboardAluno = () => {
           
           <header className="mb-10 flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h1 className="font-rajdhani text-4xl font-bold uppercase text-white">Olá, Atleta</h1>
+              <h1 className="font-rajdhani text-4xl font-bold uppercase text-complexo-light">Olá, Atleta</h1>
               <p className="text-complexo-muted">Acompanhe sua evolução e gerencie seus treinos.</p>
             </div>
             <div className="flex items-center gap-4">
               <div className="text-right">
-                <p className="text-sm font-bold text-white">Plano Performance</p>
+                <p className="text-sm font-bold text-complexo-light">Plano Performance</p>
                 <p className="text-xs text-emerald-500">Ativo até 12/2026</p>
               </div>
-              <div className="h-12 w-12 overflow-hidden rounded-full border-2 border-complexo-red bg-white/10">
+              <div className="h-12 w-12 overflow-hidden rounded-full border-2 border-complexo-red bg-complexo-light/10">
                 <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop" alt="Avatar" className="h-full w-full object-cover" />
               </div>
             </div>
@@ -72,10 +72,10 @@ export const DashboardAluno = () => {
             </div>
 
             {/* Evolution Chart */}
-            <div className="lg:col-span-2 rounded-2xl border border-white/10 bg-complexo-surface p-6">
+            <div className="lg:col-span-2 rounded-2xl border border-complexo-light/10 bg-complexo-surface p-6">
               <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
                 <h2 className="font-rajdhani text-2xl font-bold uppercase">Evolução</h2>
-                <select className="rounded-lg border border-white/10 bg-complexo-panel px-3 py-1.5 text-sm text-white focus:outline-none">
+                <select className="rounded-lg border border-complexo-light/10 bg-complexo-panel px-3 py-1.5 text-sm text-complexo-light focus:outline-none">
                   <option>Últimos 6 meses</option>
                   <option>Este ano</option>
                 </select>
@@ -99,7 +99,7 @@ export const DashboardAluno = () => {
             </div>
 
             {/* Gamification / Achievements */}
-            <div className="rounded-2xl border border-white/10 bg-complexo-surface p-6 flex flex-col">
+            <div className="rounded-2xl border border-complexo-light/10 bg-complexo-surface p-6 flex flex-col">
               <h2 className="font-rajdhani text-2xl font-bold uppercase mb-6">Nível Atual</h2>
               <div className="flex-1 flex flex-col items-center justify-center text-center">
                 <div className="relative mb-4 flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 p-1 shadow-[0_0_30px_rgba(234,179,8,0.3)]">
@@ -115,7 +115,7 @@ export const DashboardAluno = () => {
                     <span>Ouro</span>
                     <span>Diamante</span>
                   </div>
-                  <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-complexo-light/10">
                     <div className="h-full w-[70%] bg-yellow-500 rounded-full" />
                   </div>
                 </div>
@@ -123,13 +123,13 @@ export const DashboardAluno = () => {
             </div>
 
             {/* History */}
-            <div className="lg:col-span-3 rounded-2xl border border-white/10 bg-complexo-surface p-6">
+            <div className="lg:col-span-3 rounded-2xl border border-complexo-light/10 bg-complexo-surface p-6">
               <div className="mb-6 flex items-center justify-between">
                 <h2 className="font-rajdhani text-2xl font-bold uppercase">Últimos Treinos</h2>
-                <button className="text-sm font-semibold text-complexo-red hover:text-white transition-colors">Ver todos</button>
+                <button className="text-sm font-semibold text-complexo-red hover:text-complexo-light">Ver todos</button>
               </div>
               
-              <div className="divide-y divide-white/10">
+              <div className="divide-y divide-complexo-light/10">
                 {[
                   { title: "Treino A - Peito e Tríceps", date: "Hoje, 07:30", duration: "55 min", calories: "420 kcal" },
                   { title: "Treino B - Costas e Bíceps", date: "Ontem, 18:45", duration: "62 min", calories: "480 kcal" },
@@ -137,16 +137,16 @@ export const DashboardAluno = () => {
                 ].map((t, i) => (
                   <div key={i} className="flex items-center justify-between py-4">
                     <div className="flex items-center gap-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 text-complexo-muted">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-complexo-light/5 text-complexo-muted">
                         <Dumbbell className="h-5 w-5" />
                       </div>
                       <div>
-                        <p className="font-bold text-white">{t.title}</p>
+                        <p className="font-bold text-complexo-light">{t.title}</p>
                         <p className="text-sm text-complexo-muted">{t.date}</p>
                       </div>
                     </div>
                     <div className="text-right hidden sm:block">
-                      <p className="font-mono text-sm text-white">{t.duration}</p>
+                      <p className="font-mono text-sm text-complexo-light">{t.duration}</p>
                       <p className="text-xs text-complexo-muted">{t.calories}</p>
                     </div>
                     <ChevronRight className="h-5 w-5 text-complexo-muted sm:hidden" />
@@ -165,8 +165,8 @@ export const DashboardAluno = () => {
 const NavItem = ({ active, onClick, icon, label }: { active: boolean, onClick: () => void, icon: React.ReactNode, label: string }) => (
   <button
     onClick={onClick}
-    className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
-      active ? "bg-complexo-red/10 text-complexo-red" : "text-complexo-muted hover:bg-white/5 hover:text-white"
+    className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium ${
+      active ? "bg-complexo-red/10 text-complexo-red" : "text-complexo-muted hover:bg-complexo-light/5 hover:text-complexo-light"
     }`}
   >
     {icon} {label}
@@ -174,13 +174,13 @@ const NavItem = ({ active, onClick, icon, label }: { active: boolean, onClick: (
 );
 
 const StatCard = ({ icon, label, value, suffix }: { icon: React.ReactNode, label: string, value: string, suffix: string }) => (
-  <div className="rounded-2xl border border-white/10 bg-complexo-surface p-5">
-    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/5">
+  <div className="rounded-2xl border border-complexo-light/10 bg-complexo-surface p-5">
+    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-complexo-light/5">
       {icon}
     </div>
     <p className="text-sm text-complexo-muted">{label}</p>
     <div className="mt-1 flex items-baseline gap-1">
-      <span className="font-rajdhani text-3xl font-bold text-white">{value}</span>
+      <span className="font-rajdhani text-3xl font-bold text-complexo-light">{value}</span>
       <span className="text-sm font-bold text-complexo-muted">{suffix}</span>
     </div>
   </div>

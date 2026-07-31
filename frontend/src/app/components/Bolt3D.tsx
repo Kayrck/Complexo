@@ -1,5 +1,5 @@
 import { Suspense, useMemo, useRef, Component, ReactNode } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { motion } from "motion/react";
 import { BoltMark } from "./BoltMark";
@@ -11,9 +11,11 @@ import { BoltMark } from "./BoltMark";
  * hero. If WebGL is unavailable it degrades to an animated 2D mark.
  */
 
+/** Slim factor applied to the silhouette — thinner and a touch smaller than the original block mark. */
+const SLIM = 0.68;
+
 function BoltMesh() {
   const ref = useRef<THREE.Mesh>(null);
-  const { pointer } = useThree();
 
   const geometry = useMemo(() => {
     const shape = new THREE.Shape();
@@ -25,16 +27,16 @@ function BoltMesh() {
       [0.95, 0.35],
       [0.22, 0.35],
       [0.62, 1.7],
-    ];
+    ].map(([x, y]) => [x * SLIM, y]);
     shape.moveTo(pts[0][0], pts[0][1]);
     pts.slice(1).forEach(([x, y]) => shape.lineTo(x, y));
     shape.closePath();
 
     const geo = new THREE.ExtrudeGeometry(shape, {
-      depth: 0.55,
+      depth: 0.32,
       bevelEnabled: true,
-      bevelThickness: 0.14,
-      bevelSize: 0.12,
+      bevelThickness: 0.08,
+      bevelSize: 0.07,
       bevelSegments: 5,
       curveSegments: 12,
     });
@@ -45,16 +47,12 @@ function BoltMesh() {
   useFrame((_, delta) => {
     const mesh = ref.current;
     if (!mesh) return;
-    // gentle continuous spin
-    mesh.rotation.y += delta * 0.35;
-    // subtle parallax lean toward the pointer
-    const targetX = -pointer.y * 0.25;
-    mesh.rotation.x += (targetX - mesh.rotation.x) * 0.05;
-    mesh.position.x += (pointer.x * 0.15 - mesh.position.x) * 0.05;
+    // gentle, constant spin only — no pointer-driven lean or follow.
+    mesh.rotation.y += delta * 0.22;
   });
 
   return (
-    <mesh ref={ref} geometry={geometry} castShadow>
+    <mesh ref={ref} geometry={geometry} scale={0.85} castShadow>
       <meshStandardMaterial
         color="#E10600"
         metalness={0.85}
