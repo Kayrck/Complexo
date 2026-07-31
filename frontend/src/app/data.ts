@@ -1,10 +1,10 @@
 import { Dumbbell, ShoppingBag, HeartPulse } from "lucide-react";
-import colagenoImg from "../imports/_______Whey_Protein_Concentrado_Integralm_dica_900g___Ganho_de_Massa_Muscular_e_Recupera__o_R_pida.jpg";
-import multiImg from "../imports/Divulgamos_ofertas_diariamente__aguarde_as_pr_ximas_promo__es_se_acabou_de_entrar_no_grupo____Entre_em_nosso_grupo_geral_de_ofertas__Link_na_Bio______Potencialize_seu_treino_com_os_melhores_suplementos_e_treine_com.jpg";
-import bcaaImg from "../imports/Mercado_Livre_Brasil.jpg";
-import preTreinoImg from "../imports/Recovery_in_a_single_scoop______ALL-DAY_BCAA_CORE_ELEMENTS_____MUSCLE_HYDRATION___RECOVERY_SYSTEM____5000MG_INSTANTIZED_BCAAS____2500MG_LEUCINE____1250MG_ISOLEUCINE____1250MG_VALINE______NUTRITECHFIT__TRAINLIKEAPRO.jpg";
-import creatinaImg from "../imports/Velmo_Black_60_C_ps_Suplemento_Alimentar_Sem_Sabor.jpg";
-import wheyImg from "../imports/Kit_Essential_Nutrition_Collagen_Essential_Protein_Neutro_Duo__2_Unidades_.jpg";
+import colagenoImg from "../imports/Col_geno_Hidrolisado_com__cido_Hialur_nico_Premium_Sabor_Laranja_Arium_Suplementos_300g.jpg";
+import multiImg from "../imports/Multivitam_nico_Vitaplex_Multi-Vitamin_Complex_90C_-_Espartanos.jpg";
+import bcaaImg from "../imports/Bcaa_Reinforce_8_1_1_Bluster_Nutrition_-_300g.jpg";
+import preTreinoImg from "../imports/_vora_XT_Pr_-Treino__O_Suplemento_que_Vai_Revolucionar_Seu_Treino_.jpg";
+import creatinaImg from "../imports/CREATINA_MONOHIDRATADA_100__PURA___MUNDIAL_NUTRITION.jpg";
+import wheyImg from "../imports/_______Whey_Protein_Concentrado_Integralm_dica_900g___Ganho_de_Massa_Muscular_e_Recupera__o_R_pida.jpg";
 
 export interface Plan {
   id: string;

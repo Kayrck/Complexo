@@ -1,0 +1,95 @@
+// Schema preparado para o futuro. Nenhuma migration foi aplicada ainda —
+// isso só acontece quando DATABASE_URL apontar para um banco real e alguém
+// rodar `npm run db:migrate` dentro de backend/.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ALUNO
+  ADMIN
+}
+
+enum EnrollmentStatus {
+  ATIVA
+  PAUSADA
+  CANCELADA
+}
+
+enum OrderStatus {
+  PENDENTE
+  PAGO
+  CANCELADO
+}
+
+model User {
+  id           String       @id @default(cuid())
+  name         String
+  email        String       @unique
+  passwordHash String
+  role         Role         @default(ALUNO)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  enrollments  Enrollment[]
+  orders       Order[]
+}
+
+model Plan {
+  id          String       @id @default(cuid())
+  slug        String       @unique
+  name        String
+  price       Decimal      @db.Decimal(10, 2)
+  tagline     String
+  popular     Boolean      @default(false)
+  features    String[]
+  enrollments Enrollment[]
+}
+
+model Enrollment {
+  id        String           @id @default(cuid())
+  status    EnrollmentStatus @default(ATIVA)
+  startedAt DateTime         @default(now())
+  expiresAt DateTime?
+  userId    String
+  user      User             @relation(fields: [userId], references: [id])
+  planId    String
+  plan      Plan             @relation(fields: [planId], references: [id])
+}
+
+model Product {
+  id         String      @id @default(cuid())
+  slug       String      @unique
+  name       String
+  category   String
+  price      Decimal     @db.Decimal(10, 2)
+  accentHex  String
+  imageUrl   String
+  blurb      String
+  orderItems OrderItem[]
+}
+
+model Order {
+  id        String      @id @default(cuid())
+  status    OrderStatus @default(PENDENTE)
+  total     Decimal     @db.Decimal(10, 2)
+  createdAt DateTime    @default(now())
+  userId    String?
+  user      User?       @relation(fields: [userId], references: [id])
+  items     OrderItem[]
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  quantity  Int
+  unitPrice Decimal @db.Decimal(10, 2)
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+}

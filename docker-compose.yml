@@ -1,0 +1,41 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      PORT: 4000
+      NODE_ENV: development
+      DATABASE_URL: ${DATABASE_URL:-postgresql://complexo:complexo@db:5432/complexo?schema=public}
+      JWT_SECRET: ${JWT_SECRET:-change-me}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:8080}
+    depends_on:
+      - db
+
+  # Banco preparado para quando o backend passar a usá-lo de verdade.
+  # Nenhuma rota consulta esse serviço hoje.
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-complexo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-complexo}
+      POSTGRES_DB: ${POSTGRES_DB:-complexo}
+    ports:
+      - "5432:5432"
+    volumes:
+      - complexo_db_data:/var/lib/postgresql/data
+
+volumes:
+  complexo_db_data:
