@@ -1,0 +1,525 @@
+import { Link } from "react-router";
+import { motion } from "motion/react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Dumbbell,
+  Salad,
+  Moon,
+  Check,
+  Star,
+  Quote,
+} from "lucide-react";
+import { Bolt3D } from "../components/Bolt3D";
+import { Reveal } from "../components/Reveal";
+import { MagneticButton } from "../components/MagneticButton";
+import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { PLANS, PRODUCTS, UNIVERSE } from "../data";
+
+export const Home = () => {
+  return (
+    <div className="w-full overflow-hidden">
+      <Hero />
+      <StatStrip />
+      <Universo />
+      <Experiencia />
+      <PlanosPreview />
+      <Loja />
+      <PilatesTease />
+      <Depoimentos />
+      <CTAFinal />
+    </div>
+  );
+};
+
+/* ----------------------------- HERO ----------------------------- */
+
+const Hero = () => (
+  <section className="relative min-h-screen overflow-hidden bg-complexo-dark">
+    {/* soft radial accent — quiet, not loud */}
+    <div className="pointer-events-none absolute -right-40 top-0 h-[700px] w-[700px] rounded-full bg-complexo-red/10 blur-[140px]" />
+
+    <div className="mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-8 px-5 pt-24 pb-16 lg:grid-cols-2 lg:px-8 lg:pt-16">
+      {/* Copy */}
+      <div className="relative z-10">
+        <motion.span
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs uppercase tracking-widest text-complexo-muted"
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-complexo-red" />
+          O ecossistema fitness de Guaiúba
+        </motion.span>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.05 }}
+          className="mt-6 font-rajdhani text-5xl font-bold uppercase leading-[0.95] sm:text-6xl lg:text-7xl"
+        >
+          Seu próximo
+          <br />
+          nível começa
+          <br />
+          <span className="text-gradient-red">aqui.</span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.15 }}
+          className="mt-6 max-w-md text-lg leading-relaxed text-complexo-muted"
+        >
+          Academia, suplementos e pilates em um só lugar. Estrutura premium,
+          tecnologia e acompanhamento para transformar seu corpo de verdade.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.25 }}
+          className="mt-9 flex flex-col gap-3 sm:flex-row"
+        >
+          <MagneticButton
+            as={Link}
+            to="/planos"
+            className="group inline-flex items-center justify-center gap-2 rounded-full bg-complexo-red px-7 py-3.5 font-semibold text-white transition-colors hover:bg-complexo-red-bright"
+          >
+            Matricule-se
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </MagneticButton>
+          <MagneticButton
+            as={Link}
+            to="/academia"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-7 py-3.5 font-semibold text-complexo-light transition-colors hover:bg-white/5"
+          >
+            Conhecer a estrutura
+          </MagneticButton>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+          className="mt-10 flex items-center gap-6 text-sm text-complexo-muted"
+        >
+          <div className="flex items-center gap-1.5">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <Star key={i} className="h-4 w-4 fill-complexo-red text-complexo-red" />
+            ))}
+          </div>
+          <span>+2.500 alunos já evoluindo</span>
+        </motion.div>
+      </div>
+
+      {/* 3D bolt */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.92 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.2 }}
+        className="relative h-[360px] sm:h-[460px] lg:h-[600px]"
+      >
+        <Bolt3D className="h-full w-full" />
+      </motion.div>
+    </div>
+  </section>
+);
+
+/* --------------------------- STAT STRIP --------------------------- */
+
+const STATS = [
+  { value: "2.5k+", label: "Alunos ativos" },
+  { value: "10+", label: "Anos de história" },
+  { value: "3", label: "Unidades de negócio" },
+  { value: "4.9", label: "Avaliação média" },
+];
+
+const StatStrip = () => (
+  <section className="border-y border-white/10 bg-complexo-panel">
+    <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-white/10 px-5 lg:grid-cols-4 lg:px-8">
+      {STATS.map((s) => (
+        <div key={s.label} className="flex flex-col items-center gap-1 py-8">
+          <span className="font-rajdhani text-3xl font-bold lg:text-4xl">{s.value}</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-complexo-muted">
+            {s.label}
+          </span>
+        </div>
+      ))}
+    </div>
+  </section>
+);
+
+/* -------------------------- UNIVERSO --------------------------- */
+
+const Universo = () => (
+  <section className="bg-complexo-dark py-24 lg:py-32">
+    <div className="mx-auto max-w-7xl px-5 lg:px-8">
+      <Reveal className="max-w-2xl">
+        <p className="font-mono text-xs uppercase tracking-widest text-complexo-red">
+          Universo Complexo
+        </p>
+        <h2 className="mt-3 font-rajdhani text-4xl font-bold uppercase lg:text-5xl">
+          Três negócios, um só ecossistema
+        </h2>
+        <p className="mt-4 text-lg text-complexo-muted">
+          Tudo conectado para acelerar sua evolução — do treino à recuperação.
+        </p>
+      </Reveal>
+
+      <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
+        {UNIVERSE.map((biz, i) => (
+          <Reveal key={biz.id} delay={i * 0.08}>
+            <Link
+              to={biz.to}
+              className="group relative block h-[440px] overflow-hidden rounded-2xl border border-white/10 bg-complexo-surface"
+            >
+              <ImageWithFallback
+                src={biz.image}
+                alt={biz.name}
+                className="absolute inset-0 h-full w-full object-cover opacity-50 grayscale transition-all duration-700 group-hover:scale-105 group-hover:opacity-70 group-hover:grayscale-0"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-complexo-dark via-complexo-dark/40 to-transparent" />
+              <div className="relative flex h-full flex-col justify-end p-7">
+                <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-complexo-red text-white">
+                  <biz.icon className="h-5 w-5" />
+                </span>
+                <h3 className="font-rajdhani text-2xl font-bold uppercase">{biz.name}</h3>
+                <p className="mt-2 max-w-xs text-sm text-complexo-light/70">{biz.desc}</p>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-complexo-red">
+                  Explorar
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
+              </div>
+            </Link>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+/* ------------------------- EXPERIÊNCIA ------------------------- */
+
+const PILLARS = [
+  {
+    icon: Dumbbell,
+    title: "Treino",
+    desc: "Programas guiados por especialistas, do iniciante ao avançado, com tecnologia de acompanhamento.",
+  },
+  {
+    icon: Salad,
+    title: "Nutrição",
+    desc: "Suplementação certa no momento certo, com orientação para potencializar cada resultado.",
+  },
+  {
+    icon: Moon,
+    title: "Recuperação",
+    desc: "Pilates, mobilidade e descanso ativo para o corpo evoluir de forma sustentável.",
+  },
+];
+
+const Experiencia = () => (
+  <section className="border-t border-white/10 bg-complexo-panel py-24 lg:py-32">
+    <div className="mx-auto max-w-7xl px-5 lg:px-8">
+      <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+        <Reveal>
+          <p className="font-mono text-xs uppercase tracking-widest text-complexo-red">
+            A experiência Complexo
+          </p>
+          <h2 className="mt-3 font-rajdhani text-4xl font-bold uppercase lg:text-5xl">
+            Um método que une os três pilares da evolução
+          </h2>
+          <p className="mt-4 max-w-md text-lg text-complexo-muted">
+            Não basta treinar. A transformação real acontece quando treino,
+            nutrição e recuperação trabalham juntos. É isso que conecta todo o
+            ecossistema Complexo.
+          </p>
+          <MagneticButton
+            as={Link}
+            to="/academia"
+            className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 font-semibold transition-colors hover:bg-white/5"
+          >
+            Como funciona <ArrowRight className="h-4 w-4" />
+          </MagneticButton>
+        </Reveal>
+
+        <div className="flex flex-col gap-4">
+          {PILLARS.map((p, i) => (
+            <Reveal key={p.title} delay={i * 0.08}>
+              <div className="group flex gap-5 rounded-2xl border border-white/10 bg-complexo-surface p-6 transition-colors hover:border-complexo-red/40">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-complexo-red/10 text-complexo-red transition-colors group-hover:bg-complexo-red group-hover:text-white">
+                  <p.icon className="h-6 w-6" />
+                </span>
+                <div>
+                  <h3 className="font-rajdhani text-xl font-bold uppercase">{p.title}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-complexo-muted">{p.desc}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+/* ------------------------ PLANOS PREVIEW ------------------------ */
+
+const PlanosPreview = () => (
+  <section className="bg-complexo-dark py-24 lg:py-32">
+    <div className="mx-auto max-w-7xl px-5 lg:px-8">
+      <Reveal className="mx-auto max-w-2xl text-center">
+        <p className="font-mono text-xs uppercase tracking-widest text-complexo-red">Planos</p>
+        <h2 className="mt-3 font-rajdhani text-4xl font-bold uppercase lg:text-5xl">
+          Escolha como quer evoluir
+        </h2>
+        <p className="mt-4 text-lg text-complexo-muted">
+          Sem letras miúdas. Cancele quando quiser.
+        </p>
+      </Reveal>
+
+      <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
+        {PLANS.map((plan, i) => (
+          <Reveal key={plan.id} delay={i * 0.08}>
+            <div
+              className={`relative flex h-full flex-col rounded-2xl border p-7 transition-transform duration-300 hover:-translate-y-1 ${
+                plan.popular
+                  ? "border-complexo-red bg-complexo-surface glow-red"
+                  : "border-white/10 bg-complexo-surface"
+              }`}
+            >
+              {plan.popular && (
+                <span className="absolute -top-3 left-7 rounded-full bg-complexo-red px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-white">
+                  Mais popular
+                </span>
+              )}
+              <h3 className="font-rajdhani text-2xl font-bold uppercase">{plan.name}</h3>
+              <p className="mt-1 text-sm text-complexo-muted">{plan.tagline}</p>
+              <div className="mt-6 flex items-end gap-1">
+                <span className="font-rajdhani text-5xl font-bold">R${plan.price}</span>
+                <span className="mb-2 text-sm text-complexo-muted">/mês</span>
+              </div>
+              <ul className="mt-6 flex-1 space-y-3">
+                {plan.features.map((f) => (
+                  <li key={f} className="flex items-start gap-2.5 text-sm">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-complexo-red" />
+                    <span className="text-complexo-light/85">{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                to={`/cadastro`}
+                className={`mt-7 inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold transition-colors ${
+                  plan.popular
+                    ? "bg-complexo-red text-white hover:bg-complexo-red-bright"
+                    : "border border-white/15 text-complexo-light hover:bg-white/5"
+                }`}
+              >
+                Assinar {plan.name}
+              </Link>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+
+      <Reveal className="mt-8 text-center">
+        <Link
+          to="/planos"
+          className="inline-flex items-center gap-1.5 text-sm font-semibold text-complexo-red"
+        >
+          Comparar todos os planos <ArrowRight className="h-4 w-4" />
+        </Link>
+      </Reveal>
+    </div>
+  </section>
+);
+
+/* ---------------------------- LOJA ---------------------------- */
+
+const Loja = () => (
+  <section className="border-t border-white/10 bg-complexo-panel py-24 lg:py-32">
+    <div className="mx-auto max-w-7xl px-5 lg:px-8">
+      <Reveal className="flex flex-wrap items-end justify-between gap-4">
+        <div className="max-w-xl">
+          <p className="font-mono text-xs uppercase tracking-widest text-complexo-red">Loja</p>
+          <h2 className="mt-3 font-rajdhani text-4xl font-bold uppercase lg:text-5xl">
+            Suplementos que entregam
+          </h2>
+        </div>
+        <Link
+          to="/suplementos"
+          className="inline-flex items-center gap-1.5 text-sm font-semibold text-complexo-red"
+        >
+          Ver loja completa <ArrowRight className="h-4 w-4" />
+        </Link>
+      </Reveal>
+    </div>
+
+    {/* horizontal snap carousel */}
+    <div className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-4 lg:px-8 [scrollbar-width:none]">
+      {PRODUCTS.map((p) => (
+        <Link
+          key={p.id}
+          to="/suplementos"
+          className="group relative w-64 shrink-0 snap-start overflow-hidden rounded-2xl border border-white/10 bg-complexo-surface"
+        >
+          <div className="relative aspect-[4/5] overflow-hidden">
+            <div
+              className="absolute inset-0 opacity-30 blur-2xl transition-opacity group-hover:opacity-50"
+              style={{ background: p.accent }}
+            />
+            <ImageWithFallback
+              src={p.image}
+              alt={p.name}
+              className="relative h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-1"
+            />
+          </div>
+          <div className="p-5">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-complexo-muted">
+              {p.category}
+            </p>
+            <h3 className="mt-1 font-semibold">{p.name}</h3>
+            <p className="mt-3 font-rajdhani text-xl font-bold">R${p.price}</p>
+          </div>
+        </Link>
+      ))}
+    </div>
+  </section>
+);
+
+/* ------------------------ PILATES TEASE ------------------------ */
+
+const PilatesTease = () => (
+  <section className="bg-pilates-bg py-24 text-pilates-text lg:py-32">
+    <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-5 lg:grid-cols-2 lg:px-8">
+      <Reveal>
+        <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-pilates-surface">
+          <ImageWithFallback
+            src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1100&h=850&fit=crop&auto=format"
+            alt="Estúdio de Pilates Complexo"
+            className="h-full w-full object-cover"
+          />
+        </div>
+      </Reveal>
+      <Reveal delay={0.1}>
+        <p className="font-mono text-xs uppercase tracking-widest text-complexo-red">
+          Complexo Pilates
+        </p>
+        <h2 className="mt-3 font-rajdhani text-4xl font-bold uppercase lg:text-5xl">
+          O lado humano da evolução
+        </h2>
+        <p className="mt-4 max-w-md text-lg text-pilates-muted">
+          Um ambiente leve e acolhedor para mobilidade, postura e recuperação.
+          Porque cuidar do corpo também é cuidar de como você se sente.
+        </p>
+        <MagneticButton
+          as={Link}
+          to="/pilates"
+          className="mt-8 inline-flex items-center gap-2 rounded-full bg-pilates-text px-7 py-3.5 font-semibold text-pilates-bg transition-colors hover:bg-complexo-red hover:text-white"
+        >
+          Agendar uma aula <ArrowRight className="h-4 w-4" />
+        </MagneticButton>
+      </Reveal>
+    </div>
+  </section>
+);
+
+/* ------------------------ DEPOIMENTOS ------------------------ */
+
+const TESTIMONIALS = [
+  {
+    name: "Rafael Lima",
+    role: "Aluno há 2 anos",
+    quote:
+      "Perdi 18kg e ganhei disciplina. A estrutura e o acompanhamento mudaram minha rotina por completo.",
+    image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=200&h=200&fit=crop&auto=format",
+  },
+  {
+    name: "Camila Souza",
+    role: "Aluna há 1 ano",
+    quote:
+      "O combo de treino com pilates foi o que faltava. Hoje treino sem dores e com muito mais energia.",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&auto=format",
+  },
+  {
+    name: "Diego Martins",
+    role: "Aluno há 3 anos",
+    quote:
+      "Suplementação certa fez toda a diferença nos meus ganhos. Aqui é tudo conectado de verdade.",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&auto=format",
+  },
+];
+
+const Depoimentos = () => (
+  <section className="border-t border-white/10 bg-complexo-dark py-24 lg:py-32">
+    <div className="mx-auto max-w-7xl px-5 lg:px-8">
+      <Reveal className="max-w-2xl">
+        <p className="font-mono text-xs uppercase tracking-widest text-complexo-red">
+          Transformações
+        </p>
+        <h2 className="mt-3 font-rajdhani text-4xl font-bold uppercase lg:text-5xl">
+          Resultados que falam por si
+        </h2>
+      </Reveal>
+
+      <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
+        {TESTIMONIALS.map((t, i) => (
+          <Reveal key={t.name} delay={i * 0.08}>
+            <figure className="flex h-full flex-col rounded-2xl border border-white/10 bg-complexo-surface p-7">
+              <Quote className="h-7 w-7 text-complexo-red" />
+              <blockquote className="mt-4 flex-1 text-lg leading-relaxed text-complexo-light/90">
+                “{t.quote}”
+              </blockquote>
+              <figcaption className="mt-6 flex items-center gap-3">
+                <ImageWithFallback
+                  src={t.image}
+                  alt={t.name}
+                  className="h-11 w-11 rounded-full object-cover"
+                />
+                <div>
+                  <p className="font-semibold">{t.name}</p>
+                  <p className="font-mono text-xs uppercase tracking-widest text-complexo-muted">
+                    {t.role}
+                  </p>
+                </div>
+              </figcaption>
+            </figure>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+/* ------------------------- CTA FINAL ------------------------- */
+
+const CTAFinal = () => (
+  <section className="relative overflow-hidden bg-complexo-red py-24 lg:py-32">
+    <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_center,rgba(0,0,0,0.6),transparent_60%)]" />
+    <Reveal className="relative mx-auto max-w-3xl px-5 text-center text-white">
+      <h2 className="font-rajdhani text-4xl font-bold uppercase leading-tight sm:text-6xl">
+        Pronto para o seu próximo nível?
+      </h2>
+      <p className="mx-auto mt-4 max-w-lg text-lg text-white/85">
+        Comece hoje. Primeira semana com avaliação física gratuita.
+      </p>
+      <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <MagneticButton
+          as={Link}
+          to="/planos"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-complexo-dark px-8 py-4 font-semibold text-white transition-colors hover:bg-black"
+        >
+          Matricule-se agora <ArrowRight className="h-4 w-4" />
+        </MagneticButton>
+        <MagneticButton
+          as={Link}
+          to="/contato"
+          className="inline-flex items-center justify-center rounded-full border border-white/40 px-8 py-4 font-semibold text-white transition-colors hover:bg-white/10"
+        >
+          Falar com a equipe
+        </MagneticButton>
+      </div>
+    </Reveal>
+  </section>
+);

@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand */
+  --color-complexo-red: #E10600;
+  --color-complexo-red-bright: #ff3b30;
+  --color-complexo-dark: #060607;
+  --color-complexo-panel: #0c0c0e;
+  --color-complexo-surface: #141417;
+  --color-complexo-gray: #1c1c20;
+  --color-complexo-light: #FAFAFA;
+  --color-complexo-muted: #8b8b93;
+
+  /* Pilates — lighter, warmer, more human */
+  --color-pilates-bg: #F6F5F1;
+  --color-pilates-surface: #ECEAE3;
+  --color-pilates-text: #1b1b19;
+  --color-pilates-muted: #6b6a63;
+
+  /* shadcn-compatible aliases so any ui/* primitive stays on-brand */
+  --color-background: #060607;
+  --color-foreground: #FAFAFA;
+  --color-card: #0c0c0e;
+  --color-card-foreground: #FAFAFA;
+  --color-primary: #E10600;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #141417;
+  --color-secondary-foreground: #FAFAFA;
+  --color-muted: #141417;
+  --color-muted-foreground: #8b8b93;
+  --color-accent: #E10600;
+  --color-accent-foreground: #FFFFFF;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-input: rgba(255, 255, 255, 0.12);
+  --color-ring: #E10600;
+
+  --font-outfit: "Outfit", sans-serif;
+  --font-rajdhani: "Rajdhani", sans-serif;
+  --font-mono: "Geist Mono", monospace;
+
+  --radius: 0.875rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Motion's useScroll inspects the scroll container's position. */
+    position: relative;
+  }
+
+  body {
+    @apply bg-complexo-dark text-complexo-light font-outfit antialiased;
+    @apply selection:bg-complexo-red selection:text-white;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Headings inherit a tighter, more confident rhythm by default. */
+  h1, h2, h3, h4 {
+    @apply tracking-tight;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-complexo-red);
+    outline-offset: 2px;
+  }
+
+  /* Discreet scrollbar — only really present while scrolling. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 9999px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@layer utilities {
+  /* Subtle frosted panel for overlays and the sticky nav. */
+  .glass {
+    @apply bg-white/[0.04] backdrop-blur-xl border border-white/10;
+  }
+
+  .text-gradient-red {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(100deg, #ff5b52, #E10600);
+  }
+
+  /* Restrained brand glow — used sparingly, only where it adds depth. */
+  .glow-red {
+    box-shadow: 0 0 0 1px rgba(225, 6, 0, 0.25),
+                0 18px 60px -20px rgba(225, 6, 0, 0.55);
+  }
+
+  /* Thin top hairline used to separate sections without heavy borders. */
+  .hairline-t {
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+}
+
+/* Minimal, purposeful motion keyframes. */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
