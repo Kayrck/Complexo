@@ -365,7 +365,7 @@ const Loja = () => (
       {PRODUCTS.map((p) => (
         <Link
           key={p.id}
-          to="/suplementos"
+          to={`/suplementos/${p.id}`}
           className="relative w-64 shrink-0 snap-start overflow-hidden rounded-2xl border border-complexo-light/10 bg-complexo-surface"
         >
           <div className="relative aspect-[4/5] overflow-hidden">

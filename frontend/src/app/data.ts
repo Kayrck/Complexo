@@ -79,6 +79,11 @@ export const PLAN_MATRIX: { label: string; values: (boolean | string)[] }[] = [
   { label: "Personal dedicado", values: [false, false, true] },
 ];
 
+export interface NutritionFact {
+  label: string;
+  value: string;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -87,6 +92,14 @@ export interface Product {
   accent: string;
   image: string;
   blurb: string;
+  /** Longer, detail-page description. */
+  description: string;
+  servingSize: string;
+  servingsPerContainer: number;
+  howToUse: string;
+  benefits: string[];
+  nutritionFacts: NutritionFact[];
+  ingredients: string;
 }
 
 export const PRODUCTS: Product[] = [
@@ -98,6 +111,25 @@ export const PRODUCTS: Product[] = [
     accent: "#E10600",
     image: wheyImg,
     blurb: "27g de proteína por dose, absorção rápida.",
+    description:
+      "Proteína isolada do soro do leite, com absorção rápida e baixo teor de carboidratos e gordura. Ideal para o pós-treino, quando o corpo mais precisa de aminoácidos para iniciar a recuperação muscular.",
+    servingSize: "1 scoop (30g)",
+    servingsPerContainer: 30,
+    howToUse: "Misture 1 scoop (30g) em 200ml de água ou leite. Consuma preferencialmente até 30 minutos após o treino.",
+    benefits: [
+      "27g de proteína por dose",
+      "Baixo teor de lactose",
+      "Absorção rápida",
+      "Perfil completo de aminoácidos essenciais",
+    ],
+    nutritionFacts: [
+      { label: "Valor energético", value: "120kcal" },
+      { label: "Proteínas", value: "27g" },
+      { label: "Carboidratos", value: "2g" },
+      { label: "Gorduras totais", value: "1g" },
+      { label: "Sódio", value: "90mg" },
+    ],
+    ingredients: "Isolado proteico do soro do leite (Whey Protein Isolate), aromatizante, edulcorantes (sucralose, acessulfame-K), lecitina de soja.",
   },
   {
     id: "creatina",
@@ -107,6 +139,22 @@ export const PRODUCTS: Product[] = [
     accent: "#2b6fff",
     image: creatinaImg,
     blurb: "Força e volume com 5g de creatina pura.",
+    description:
+      "Um dos suplementos mais estudados do mercado, ajuda a aumentar a força, a potência e o volume muscular. Ótima para quem treina musculação com foco em ganho de performance.",
+    servingSize: "1 dose (5g)",
+    servingsPerContainer: 60,
+    howToUse: "Consuma 5g por dia, em qualquer horário. Não é necessário ciclar.",
+    benefits: [
+      "Aumento de força e potência",
+      "100% pura, sem misturas",
+      "Sem necessidade de fase de saturação",
+      "Suporte à recuperação entre séries",
+    ],
+    nutritionFacts: [
+      { label: "Valor energético", value: "0kcal" },
+      { label: "Creatina monohidratada", value: "5g" },
+    ],
+    ingredients: "Creatina monohidratada 100% pura.",
   },
   {
     id: "pre-treino",
@@ -116,6 +164,23 @@ export const PRODUCTS: Product[] = [
     accent: "#ff7a00",
     image: preTreinoImg,
     blurb: "Foco e energia explosiva para o treino.",
+    description: "Fórmula estimulante para energia e foco explosivos, pensada pra quem quer levar cada treino ao limite.",
+    servingSize: "1 dose (10g)",
+    servingsPerContainer: 30,
+    howToUse: "Misture 1 dose em 200ml de água, 20 a 30 minutos antes do treino. Não consumir à noite.",
+    benefits: [
+      "Energia e foco imediatos",
+      "Cafeína + beta-alanina",
+      "Melhora a resistência muscular",
+      "Sabor refrescante",
+    ],
+    nutritionFacts: [
+      { label: "Valor energético", value: "15kcal" },
+      { label: "Cafeína", value: "200mg" },
+      { label: "Beta-alanina", value: "3,2g" },
+      { label: "Citrulina malato", value: "6g" },
+    ],
+    ingredients: "Citrulina malato, beta-alanina, cafeína anidra, taurina, aromatizante, edulcorantes.",
   },
   {
     id: "bcaa",
@@ -125,6 +190,24 @@ export const PRODUCTS: Product[] = [
     accent: "#16a34a",
     image: bcaaImg,
     blurb: "Aminoácidos para recuperação muscular.",
+    description: "Aminoácidos de cadeia ramificada para reduzir o catabolismo muscular e acelerar a recuperação entre os treinos.",
+    servingSize: "1 dose (10g)",
+    servingsPerContainer: 30,
+    howToUse: "Consuma 1 dose durante ou logo após o treino.",
+    benefits: [
+      "Proporção 2:1:1 (leucina, isoleucina, valina)",
+      "Reduz a fadiga muscular",
+      "Auxilia na recuperação",
+      "Livre de açúcar",
+    ],
+    nutritionFacts: [
+      { label: "Valor energético", value: "20kcal" },
+      { label: "BCAA", value: "10g" },
+      { label: "Leucina", value: "5g" },
+      { label: "Isoleucina", value: "2,5g" },
+      { label: "Valina", value: "2,5g" },
+    ],
+    ingredients: "L-leucina, L-isoleucina, L-valina, aromatizante, edulcorantes.",
   },
   {
     id: "multi",
@@ -134,6 +217,24 @@ export const PRODUCTS: Product[] = [
     accent: "#9333ea",
     image: multiImg,
     blurb: "Suporte diário completo de vitaminas.",
+    description: "Suporte diário completo com vitaminas e minerais essenciais para manter o corpo em equilíbrio, mesmo na rotina mais corrida.",
+    servingSize: "1 cápsula",
+    servingsPerContainer: 60,
+    howToUse: "Tome 1 cápsula ao dia, junto de uma refeição.",
+    benefits: [
+      "Fórmula completa com 12 vitaminas e minerais",
+      "Suporte à imunidade",
+      "Praticidade no dia a dia",
+      "1 cápsula por dia",
+    ],
+    nutritionFacts: [
+      { label: "Vitamina C", value: "90mg" },
+      { label: "Vitamina D", value: "10mcg" },
+      { label: "Zinco", value: "11mg" },
+      { label: "Magnésio", value: "100mg" },
+      { label: "Complexo B", value: "100% VD" },
+    ],
+    ingredients: "Vitaminas A, C, D, E, complexo B, minerais quelados (zinco, magnésio, selênio), cápsula vegetal.",
   },
   {
     id: "colageno",
@@ -143,6 +244,22 @@ export const PRODUCTS: Product[] = [
     accent: "#db2777",
     image: colagenoImg,
     blurb: "Articulações, pele e tecidos saudáveis.",
+    description: "Colágeno tipo I e III hidrolisado, formulado para apoiar a saúde da pele, cabelos, unhas e articulações.",
+    servingSize: "1 dose (10g)",
+    servingsPerContainer: 30,
+    howToUse: "Misture 1 dose em água, suco ou vitamina, 1 vez ao dia.",
+    benefits: [
+      "Peptídeos de baixo peso molecular",
+      "Apoia pele, cabelo e unhas",
+      "Suporte às articulações",
+      "Sem sabor, dissolve fácil",
+    ],
+    nutritionFacts: [
+      { label: "Valor energético", value: "35kcal" },
+      { label: "Proteínas", value: "9g" },
+      { label: "Colágeno hidrolisado", value: "10g" },
+    ],
+    ingredients: "Colágeno hidrolisado (peptídeos de colágeno bovino), vitamina C.",
   },
   {
     id: "omega-3",
@@ -152,6 +269,22 @@ export const PRODUCTS: Product[] = [
     accent: "#0891b2",
     image: omegaImg,
     blurb: "Saúde cardiovascular e função cerebral em dia.",
+    description: "Ácidos graxos EPA e DHA para apoiar a saúde cardiovascular, cognitiva e o processo de recuperação do corpo.",
+    servingSize: "2 cápsulas",
+    servingsPerContainer: 60,
+    howToUse: "Tome 2 cápsulas ao dia, junto de uma refeição.",
+    benefits: [
+      "Alta concentração de EPA e DHA",
+      "Suporte cardiovascular",
+      "Ação anti-inflamatória",
+      "Cápsulas de fácil deglutição",
+    ],
+    nutritionFacts: [
+      { label: "Óleo de peixe", value: "2000mg" },
+      { label: "EPA", value: "360mg" },
+      { label: "DHA", value: "240mg" },
+    ],
+    ingredients: "Óleo de peixe concentrado, cápsula de gelatina, antioxidante (vitamina E).",
   },
   {
     id: "hipercalorico",
@@ -161,6 +294,23 @@ export const PRODUCTS: Product[] = [
     accent: "#ca8a04",
     image: hipercaloricoImg,
     blurb: "Calorias de qualidade para ganho de massa real.",
+    description: "Calorias de qualidade em cada dose, combinando carboidratos, proteínas e gorduras boas para quem busca ganho de massa real.",
+    servingSize: "2 scoops (150g)",
+    servingsPerContainer: 20,
+    howToUse: "Misture 2 scoops em 400ml de leite ou água. Consuma entre as refeições ou após o treino.",
+    benefits: [
+      "600kcal por dose",
+      "50g de proteína por dose",
+      "Carboidratos de absorção mista",
+      "Enriquecido com vitaminas e minerais",
+    ],
+    nutritionFacts: [
+      { label: "Valor energético", value: "600kcal" },
+      { label: "Proteínas", value: "50g" },
+      { label: "Carboidratos", value: "85g" },
+      { label: "Gorduras totais", value: "8g" },
+    ],
+    ingredients: "Maltodextrina, concentrado proteico do soro do leite, aveia em flocos, óleo de triglicerídeos de cadeia média (TCM), vitaminas e minerais.",
   },
   {
     id: "glutamina",
@@ -170,8 +320,25 @@ export const PRODUCTS: Product[] = [
     accent: "#65a30d",
     image: glutaminaImg,
     blurb: "Reduz o catabolismo e acelera a recuperação muscular.",
+    description: "Aminoácido mais abundante no corpo, ajuda a reduzir o catabolismo muscular e apoia o sistema imunológico em períodos de treino intenso.",
+    servingSize: "1 dose (5g)",
+    servingsPerContainer: 60,
+    howToUse: "Consuma 5g após o treino ou antes de dormir.",
+    benefits: [
+      "100% L-glutamina pura",
+      "Reduz o catabolismo muscular",
+      "Apoia a recuperação intestinal e imunológica",
+      "Sem sabor",
+    ],
+    nutritionFacts: [
+      { label: "Valor energético", value: "0kcal" },
+      { label: "L-glutamina", value: "5g" },
+    ],
+    ingredients: "L-glutamina 100% pura.",
   },
 ];
+
+export const getProduct = (id?: string) => PRODUCTS.find((p) => p.id === id);
 
 export interface BusinessInfo {
   id: string;
