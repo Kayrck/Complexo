@@ -1,4 +1,7 @@
-import { Dumbbell, ShoppingBag, HeartPulse } from "lucide-react";
+import { Dumbbell, ShoppingBag, HeartPulse, Salad, LucideIcon } from "lucide-react";
+import academiaImg from "../imports/academia/academia-sala-vermelha.png";
+import pilatesImg from "../imports/pilates/pilates-estudio.png";
+import suplementosImg from "../imports/suplementos/suplementos-creatina.png";
 
 /** Fotos genéricas de banco de imagens (Unsplash, mesma licença já usada no
  * projeto) — não são as embalagens reais dos produtos, só ilustrativas. */
@@ -169,32 +172,98 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
-export const UNIVERSE = [
+export interface BusinessInfo {
+  id: string;
+  /** Short label used in nav/cards, e.g. "Pilates". */
+  name: string;
+  /** Full brand label, e.g. "Complexo Pilates". */
+  fullName: string;
+  to: string;
+  desc: string;
+  icon: LucideIcon;
+  /** Cover photo for generic listings (Universo grid). Omit when no photo
+   * should represent this unit there — e.g. Nutrição uses a styled card
+   * instead of the nutritionist's personal photo, which only appears on
+   * her own /nutricao page. */
+  image?: string;
+  /** First address line — street and number. */
+  address: string;
+  /** Second address line — neighborhood, city/state, CEP. */
+  addressCity: string;
+  phone: string;
+  phoneHref: string;
+  whatsappHref: string;
+  climatizado: boolean;
+}
+
+/**
+ * Single source of truth for each business unit's contact info. Referenced by
+ * the Footer (dynamic per-section), Contato, Navbar and the Home "Universo"
+ * grid — update an address/phone here and it's correct everywhere.
+ */
+export const BUSINESSES: BusinessInfo[] = [
   {
     id: "academia",
     name: "Academia",
+    fullName: "Complexo Academia",
     to: "/academia",
-    icon: Dumbbell,
     desc: "Musculação e alta performance em estrutura de elite.",
-    image:
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1000&h=1200&fit=crop&auto=format",
-  },
-  {
-    id: "suplementos",
-    name: "Suplementos",
-    to: "/suplementos",
-    icon: ShoppingBag,
-    desc: "Suplementação selecionada para potencializar resultados.",
-    image:
-      "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=1000&h=1200&fit=crop&auto=format",
+    icon: Dumbbell,
+    image: academiaImg,
+    address: "Frederico Augusto, 117",
+    addressCity: "Guaiúba - CE, CEP 61890-000",
+    phone: "+55 85 98683-0769",
+    phoneHref: "tel:+5585986830769",
+    whatsappHref: "https://wa.me/5585986830769",
+    climatizado: false,
   },
   {
     id: "pilates",
     name: "Pilates",
+    fullName: "Complexo Pilates",
     to: "/pilates",
-    icon: HeartPulse,
     desc: "Mobilidade, recuperação e equilíbrio para o corpo.",
-    image:
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1000&h=1200&fit=crop&auto=format",
+    icon: HeartPulse,
+    image: pilatesImg,
+    address: "Rua Pedro Augusto",
+    addressCity: "Centro - Guaiúba - CE",
+    phone: "+55 85 98866-4882",
+    phoneHref: "tel:+5585988664882",
+    whatsappHref: "https://wa.me/5585988664882",
+    climatizado: true,
+  },
+  {
+    id: "suplementos",
+    name: "Suplementos",
+    fullName: "Complexo Suplementos",
+    to: "/suplementos",
+    desc: "Suplementação selecionada para potencializar resultados.",
+    icon: ShoppingBag,
+    image: suplementosImg,
+    address: "Rua Antônio Acioly, nº 196",
+    addressCity: "Guaiúba - CE, CEP 61890-000",
+    phone: "+55 85 98866-4882",
+    phoneHref: "tel:+5585988664882",
+    whatsappHref: "https://wa.me/5585988664882",
+    climatizado: false,
+  },
+  {
+    id: "nutricao",
+    name: "Nutrição",
+    fullName: "Nutri Complexo",
+    to: "/nutricao",
+    desc: "Acompanhamento nutricional para potencializar seu treino.",
+    icon: Salad,
+    address: "Rua Pedro Augusto",
+    addressCity: "Centro - Guaiúba - CE",
+    phone: "+55 85 98866-4882",
+    phoneHref: "tel:+5585988664882",
+    whatsappHref: "https://wa.me/5585988664882",
+    climatizado: true,
   },
 ];
+
+export const getBusiness = (id?: string) => BUSINESSES.find((b) => b.id === id);
+
+/** Home "Universo Complexo" grid — every business unit, same source as the Footer. */
+export const UNIVERSE = BUSINESSES;

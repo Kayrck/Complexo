@@ -94,16 +94,16 @@ export const CartDrawer = () => {
             <div className="space-y-3 text-sm">
               <div className="flex justify-between text-complexo-muted">
                 <span>Subtotal</span>
-                <span className="text-complexo-light">R$ {subtotal.toFixed(2)}</span>
+                <span className="text-complexo-light">R${subtotal}</span>
               </div>
               <div className="flex justify-between text-complexo-muted">
                 <span>Frete</span>
-                <span className="text-complexo-light">{frete === 0 ? "Grátis" : `R$ ${frete.toFixed(2)}`}</span>
+                <span className="text-complexo-light">{frete === 0 ? "Grátis" : `R$${frete}`}</span>
               </div>
               <div className="my-4 h-px bg-complexo-light/10" />
               <div className="flex justify-between font-rajdhani text-2xl font-bold">
                 <span>Total</span>
-                <span className="text-complexo-red">R$ {total.toFixed(2)}</span>
+                <span className="text-complexo-red">R${total}</span>
               </div>
             </div>
             <button

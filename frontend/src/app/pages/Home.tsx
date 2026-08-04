@@ -8,12 +8,13 @@ import {
   Moon,
   Check,
   Star,
-  Quote,
+  Users,
+  MessageCircle,
 } from "lucide-react";
 import { Bolt3D } from "../components/Bolt3D";
 import { Reveal } from "../components/Reveal";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
-import { PLANS, PRODUCTS, UNIVERSE } from "../data";
+import { PLANS, PRODUCTS, UNIVERSE, getBusiness } from "../data";
 
 export const Home = () => {
   return (
@@ -25,7 +26,7 @@ export const Home = () => {
       <PlanosPreview />
       <Loja />
       <PilatesTease />
-      <Depoimentos />
+      <Avaliacoes />
       <CTAFinal />
     </div>
   );
@@ -99,14 +100,10 @@ const Hero = () => (
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="mt-10 flex items-center gap-6 text-sm text-complexo-muted"
+          className="mt-10 flex items-center gap-2.5 text-sm text-complexo-muted"
         >
-          <div className="flex items-center gap-1.5">
-            {[0, 1, 2, 3, 4].map((i) => (
-              <Star key={i} className="h-4 w-4 fill-complexo-red text-complexo-red" />
-            ))}
-          </div>
-          <span>+2.500 alunos já evoluindo</span>
+          <Users className="h-4 w-4 text-complexo-red" />
+          <span>+1.500 alunos já evoluindo</span>
         </motion.div>
       </div>
 
@@ -126,10 +123,10 @@ const Hero = () => (
 /* --------------------------- STAT STRIP --------------------------- */
 
 const STATS = [
-  { value: "2.5k+", label: "Alunos ativos" },
-  { value: "10+", label: "Anos de história" },
-  { value: "3", label: "Unidades de negócio" },
-  { value: "4.9", label: "Avaliação média" },
+  { value: "1.500+", label: "Alunos ativos" },
+  { value: "~4", label: "Anos de mercado" },
+  { value: "4", label: "Unidades de negócio" },
+  { value: "9+", label: "Serviços de bem-estar" },
 ];
 
 const StatStrip = () => (
@@ -157,26 +154,37 @@ const Universo = () => (
           Universo Complexo
         </p>
         <h2 className="mt-3 font-rajdhani text-4xl font-bold uppercase lg:text-5xl">
-          Três negócios, um só ecossistema
+          Quatro negócios, um só ecossistema
         </h2>
         <p className="mt-4 text-lg text-complexo-muted">
-          Tudo conectado para acelerar sua evolução — do treino à recuperação.
+          Tudo conectado para acelerar sua evolução — do treino à recuperação e à alimentação.
         </p>
       </Reveal>
 
-      <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
+      <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {UNIVERSE.map((biz, i) => (
           <Reveal key={biz.id} delay={i * 0.08}>
             <Link
               to={biz.to}
               className="relative block h-[440px] overflow-hidden rounded-2xl border border-complexo-light/10 bg-complexo-surface"
             >
-              <ImageWithFallback
-                src={biz.image}
-                alt={biz.name}
-                className="absolute inset-0 h-full w-full object-cover opacity-70"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-complexo-dark via-complexo-dark/40 to-transparent" />
+              {biz.image ? (
+                <>
+                  <ImageWithFallback
+                    src={biz.image}
+                    alt={`${biz.fullName} — ${biz.desc}`}
+                    className="absolute inset-0 h-full w-full object-cover opacity-70"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-complexo-dark via-complexo-dark/40 to-transparent" />
+                </>
+              ) : (
+                <div
+                  className="absolute inset-0"
+                  style={{ background: "linear-gradient(160deg, #3a0b09 0%, #0a0705 65%, #050403 100%)" }}
+                >
+                  <div className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-complexo-red/20 blur-[70px]" />
+                </div>
+              )}
               <div className="relative flex h-full flex-col justify-end p-7">
                 <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-complexo-red text-white">
                   <biz.icon className="h-5 w-5" />
@@ -392,7 +400,7 @@ const PilatesTease = () => (
       <Reveal>
         <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-pilates-surface">
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1100&h=850&fit=crop&auto=format"
+            src={getBusiness("pilates")!.image}
             alt="Estúdio de Pilates Complexo"
             className="h-full w-full object-cover"
           />
@@ -420,69 +428,56 @@ const PilatesTease = () => (
   </section>
 );
 
-/* ------------------------ DEPOIMENTOS ------------------------ */
+/* ------------------------ AVALIAÇÕES ------------------------ */
 
-const TESTIMONIALS = [
-  {
-    name: "Rafael Lima",
-    role: "Aluno há 2 anos",
-    quote:
-      "Perdi 18kg e ganhei disciplina. A estrutura e o acompanhamento mudaram minha rotina por completo.",
-    image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=200&h=200&fit=crop&auto=format",
-  },
-  {
-    name: "Camila Souza",
-    role: "Aluna há 1 ano",
-    quote:
-      "O combo de treino com pilates foi o que faltava. Hoje treino sem dores e com muito mais energia.",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&auto=format",
-  },
-  {
-    name: "Diego Martins",
-    role: "Aluno há 3 anos",
-    quote:
-      "Suplementação certa fez toda a diferença nos meus ganhos. Aqui é tudo conectado de verdade.",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&auto=format",
-  },
-];
-
-const Depoimentos = () => (
+const Avaliacoes = () => (
   <section className="border-t border-complexo-light/10 bg-complexo-dark py-24 lg:py-32">
     <div className="mx-auto max-w-7xl px-5 lg:px-8">
       <Reveal className="max-w-2xl">
         <p className="font-mono text-xs uppercase tracking-widest text-complexo-red">
-          Transformações
+          Avaliações
         </p>
         <h2 className="mt-3 font-rajdhani text-4xl font-bold uppercase lg:text-5xl">
-          Resultados que falam por si
+          Sua opinião constrói a Complexo
         </h2>
+        <p className="mt-4 text-lg text-complexo-muted">
+          Ainda não temos avaliações públicas por aqui — e preferimos deixar em branco a
+          inventar alguma. Assim que os primeiros alunos avaliarem, elas aparecem nesta seção.
+        </p>
       </Reveal>
 
-      <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
-        {TESTIMONIALS.map((t, i) => (
-          <Reveal key={t.name} delay={i * 0.08}>
-            <figure className="flex h-full flex-col rounded-2xl border border-complexo-light/10 bg-complexo-surface p-7">
-              <Quote className="h-7 w-7 text-complexo-red" />
-              <blockquote className="mt-4 flex-1 text-lg leading-relaxed text-complexo-light/90">
-                “{t.quote}”
-              </blockquote>
-              <figcaption className="mt-6 flex items-center gap-3">
-                <ImageWithFallback
-                  src={t.image}
-                  alt={t.name}
-                  className="h-11 w-11 rounded-full object-cover"
-                />
-                <div>
-                  <p className="font-semibold">{t.name}</p>
-                  <p className="font-mono text-xs uppercase tracking-widest text-complexo-muted">
-                    {t.role}
-                  </p>
-                </div>
-              </figcaption>
-            </figure>
-          </Reveal>
-        ))}
-      </div>
+      <Reveal delay={0.1} className="mt-12">
+        <div className="flex flex-col items-center gap-6 rounded-3xl border border-dashed border-complexo-light/15 bg-complexo-surface px-6 py-14 text-center">
+          <div className="flex items-center gap-1.5">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <Star key={i} className="h-6 w-6 text-complexo-light/15" />
+            ))}
+          </div>
+          <div>
+            <h3 className="font-rajdhani text-2xl font-bold uppercase">
+              Nenhuma avaliação ainda
+            </h3>
+            <p className="mx-auto mt-2 max-w-md text-sm text-complexo-muted">
+              Treinou, fez pilates, consultou com a nutricionista ou comprou na loja? Conte
+              como foi — sua avaliação ajuda outras pessoas a conhecerem a Complexo.
+            </p>
+          </div>
+          <a
+            href={`https://wa.me/5585986830769?text=${encodeURIComponent(
+              "Olá! Gostaria de deixar minha avaliação sobre a Complexo 🙂",
+            )}`}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-complexo-red px-7 py-3.5 font-semibold text-white hover:bg-complexo-red-bright"
+          >
+            <MessageCircle className="h-4 w-4" />
+            Deixar minha avaliação
+          </a>
+          <p className="text-xs text-complexo-muted">
+            Em breve, integradas ao Google Reviews — por enquanto, enviadas direto pra nossa equipe.
+          </p>
+        </div>
+      </Reveal>
     </div>
   </section>
 );

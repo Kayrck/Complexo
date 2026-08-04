@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { name: "Planos", path: "/planos" },
   { name: "Suplementos", path: "/suplementos" },
   { name: "Pilates", path: "/pilates" },
+  { name: "Nutrição", path: "/nutricao" },
   { name: "Favoritos", path: "/favoritos" },
   { name: "Área do Aluno", path: "/login" },
   { name: "Contato", path: "/contato" },
@@ -55,7 +56,7 @@ export const Navbar = () => {
           </span>
         </Link>
 
-        <div className="hidden items-center gap-1 lg:flex">
+        <div className="hidden items-center gap-1 xl:flex">
           {NAV_LINKS.map((link) => {
             const active = location.pathname === link.path;
             return (
@@ -83,7 +84,7 @@ export const Navbar = () => {
           })}
         </div>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-3 xl:flex">
           <button
             onClick={() => setIsCartOpen(true)}
             aria-label="Carrinho"
@@ -108,7 +109,7 @@ export const Navbar = () => {
           </Link>
         </div>
 
-        <div className="flex items-center gap-3 lg:hidden">
+        <div className="flex items-center gap-3 xl:hidden">
           {!isPilates && <ThemeSwitch />}
           <button
             onClick={() => setIsCartOpen(true)}
@@ -142,7 +143,7 @@ export const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             className={clsx(
-              "overflow-hidden lg:hidden",
+              "overflow-hidden xl:hidden",
               isPilates ? "bg-pilates-bg" : "bg-complexo-panel",
             )}
           >

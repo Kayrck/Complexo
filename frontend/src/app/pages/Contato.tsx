@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { MapPin, Phone, Mail, Clock, Check } from "lucide-react";
 import { Reveal } from "../components/Reveal";
+import { BUSINESSES } from "../data";
 
 const INFO = [
-  { icon: MapPin, label: "Endereço", value: "Rua Antônio Acioly, 196 — Centro, Guaiúba/CE" },
-  { icon: Phone, label: "Telefone", value: "+55 85 98683-0769 · +55 85 98866-4882" },
   { icon: Mail, label: "E-mail", value: "contato@grupocomplexo.com.br" },
   { icon: Clock, label: "Atendimento", value: "Seg a Sex, 08h — 20h" },
 ];
@@ -53,6 +52,7 @@ export const Contato = () => {
                     <option className="bg-complexo-panel">Planos</option>
                     <option className="bg-complexo-panel">Suplementos</option>
                     <option className="bg-complexo-panel">Pilates</option>
+                    <option className="bg-complexo-panel">Nutrição</option>
                   </select>
                 </Field>
                 <Field label="Mensagem">
@@ -81,6 +81,34 @@ export const Contato = () => {
           {/* Info */}
           <Reveal delay={0.1}>
             <div className="space-y-4">
+              <p className="font-mono text-xs uppercase tracking-widest text-complexo-muted">
+                Nossas unidades
+              </p>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {BUSINESSES.map((biz) => (
+                  <div
+                    key={biz.id}
+                    className="rounded-2xl border border-complexo-light/10 bg-complexo-surface p-5"
+                  >
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-complexo-red/10 text-complexo-red">
+                      <biz.icon className="h-5 w-5" />
+                    </span>
+                    <p className="mt-3 font-rajdhani text-lg font-bold uppercase">{biz.name}</p>
+                    <p className="mt-1 text-sm text-complexo-light/80">
+                      {biz.address}
+                      <br />
+                      {biz.addressCity}
+                    </p>
+                    <a
+                      href={biz.phoneHref}
+                      className="mt-2 inline-block text-sm text-complexo-red hover:text-complexo-red-bright"
+                    >
+                      {biz.phone}
+                    </a>
+                  </div>
+                ))}
+              </div>
+
               {INFO.map((item) => (
                 <div
                   key={item.label}

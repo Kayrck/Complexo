@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router";
-import { ShoppingBag, Plus, Star, Check, Heart } from "lucide-react";
+import { ShoppingBag, Plus, Heart } from "lucide-react";
 import { Reveal } from "../components/Reveal";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { PRODUCTS, Product } from "../data";
@@ -115,7 +115,7 @@ const ProductCard = ({
         className="relative h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:[transform:rotateY(8deg)]"
       />
       <div className="absolute right-3 top-3 flex flex-col gap-2">
-        <button 
+        <button
           onClick={onToggleFavorite}
           className={`flex h-8 w-8 items-center justify-center rounded-full bg-black/50 backdrop-blur ${
             isFavorite ? "text-complexo-red hover:bg-complexo-red hover:text-white" : "text-white hover:text-complexo-red"
@@ -123,10 +123,6 @@ const ProductCard = ({
         >
            <Heart className={`h-4 w-4 ${isFavorite ? "fill-current" : ""}`} />
         </button>
-        <div className="flex items-center gap-1 rounded-full bg-black/50 px-2.5 py-1 backdrop-blur">
-          <Star className="h-3.5 w-3.5 fill-complexo-red text-complexo-red" />
-          <span className="font-mono text-xs">4.9</span>
-        </div>
       </div>
     </div>
 

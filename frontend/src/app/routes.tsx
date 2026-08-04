@@ -9,6 +9,7 @@ import { Academia } from "./pages/Academia";
 import { Planos } from "./pages/Planos";
 import { Suplementos } from "./pages/Suplementos";
 import { Pilates } from "./pages/Pilates";
+import { Nutricao } from "./pages/Nutricao";
 import { Contato } from "./pages/Contato";
 import { Login } from "./pages/Login";
 import { Checkout } from "./pages/Checkout";
@@ -57,6 +58,7 @@ export const router = createBrowserRouter([
       { path: "planos", Component: Planos },
       { path: "suplementos", Component: Suplementos },
       { path: "pilates", Component: Pilates },
+      { path: "nutricao", Component: Nutricao },
       { path: "contato", Component: Contato },
       { path: "checkout/:planId", Component: Checkout },
       { path: "checkout", Component: Checkout },

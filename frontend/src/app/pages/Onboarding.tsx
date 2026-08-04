@@ -196,7 +196,7 @@ export const Onboarding = () => {
                       <p className="mt-1 text-sm text-complexo-muted">{p.tagline}</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-rajdhani text-2xl font-bold text-complexo-light">R$ {p.price}</p>
+                      <p className="font-rajdhani text-2xl font-bold text-complexo-light">R${p.price}</p>
                       <p className="text-xs text-complexo-muted">/mês</p>
                     </div>
                   </button>
@@ -216,9 +216,9 @@ export const Onboarding = () => {
               <div className="rounded-xl border border-complexo-light/10 bg-complexo-surface p-5 mb-8 flex justify-between items-center">
                 <div>
                   <p className="text-sm font-bold text-complexo-muted uppercase">Resumo</p>
-                  <p className="font-bold text-complexo-light text-lg">{PLANS.find(p=>p.id===selectedPlan)?.name}</p>
+                  <p className="font-bold text-complexo-light text-lg">{PLANS.find((p) => p.id === selectedPlan)?.name}</p>
                 </div>
-                <p className="font-rajdhani text-3xl font-bold text-complexo-red">R$ {PLANS.find(p=>p.id===selectedPlan)?.price}</p>
+                <p className="font-rajdhani text-3xl font-bold text-complexo-red">R${PLANS.find((p) => p.id === selectedPlan)?.price}</p>
               </div>
 
               <div className="space-y-4">
