@@ -2,6 +2,7 @@ import { Dumbbell, ShoppingBag, HeartPulse, Salad, LucideIcon } from "lucide-rea
 import academiaImg from "../imports/academia/academia-sala-vermelha.png";
 import pilatesImg from "../imports/pilates/pilates-estudio.png";
 import suplementosImg from "../imports/suplementos/suplementos-creatina.png";
+import nutricaoImg from "../imports/nutricao/cafe-da-manha.jpg";
 
 /** Fotos genéricas de banco de imagens (Unsplash, mesma licença já usada no
  * projeto) — não são as embalagens reais dos produtos, só ilustrativas. */
@@ -254,6 +255,7 @@ export const BUSINESSES: BusinessInfo[] = [
     to: "/nutricao",
     desc: "Acompanhamento nutricional para potencializar seu treino.",
     icon: Salad,
+    image: nutricaoImg,
     address: "Rua Pedro Augusto",
     addressCity: "Centro - Guaiúba - CE",
     phone: "+55 85 98866-4882",

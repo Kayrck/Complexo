@@ -40,7 +40,7 @@ const BENEFITS = [
   {
     icon: Pill,
     title: "Orientação sobre a suplementação ideal",
-    desc: "Entenda o que realmente faz sentido pra você — sem modismo, com critério.",
+    desc: "Entenda o que realmente faz sentido pra você, sem modismo, com critério.",
   },
   {
     icon: TrendingUp,
@@ -148,7 +148,7 @@ export const Nutricao = () => (
               <p className="mt-1 text-sm text-complexo-muted">Nutricionista · Nutri Complexo</p>
               <p className="mt-3 text-sm leading-relaxed text-complexo-light/80">
                 Une ciência e prática para criar planos alimentares reais, feitos pra sua
-                rotina — sem dietas da moda, sem regras impossíveis de seguir.
+                rotina, sem dietas da moda, sem regras impossíveis de seguir.
               </p>
             </div>
           </div>
@@ -198,7 +198,7 @@ export const Nutricao = () => (
           </h2>
           <p className="mt-5 max-w-md text-lg text-complexo-muted">
             A Lara acompanha cada paciente por um aplicativo de nutrição
-            dedicado — a tecnologia não substitui o atendimento humano, ela
+            dedicado. A tecnologia não substitui o atendimento humano, ela
             completa: mais praticidade, organização e constância entre uma
             consulta e outra.
           </p>

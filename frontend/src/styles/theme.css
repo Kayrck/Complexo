@@ -64,6 +64,26 @@
   --color-input: rgba(255, 255, 255, 0.12);
 }
 
+/*
+ * Silk Blend — animated background, light mode only.
+ * Every surface already painted with bg-complexo-dark (body, layout shells,
+ * page roots) picks this up automatically — no per-page changes needed.
+ * --silk-angle is written to :root every frame by SilkBackgroundDriver; the
+ * rule falls back to a static angle so nothing breaks before JS mounts.
+ * Scoped with :not(.dark) and left unlayered so it wins over the plain
+ * .bg-complexo-dark utility without a specificity fight.
+ */
+:root:not(.dark) body,
+:root:not(.dark) .bg-complexo-dark {
+  background-color: #F7F3EE;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0) 52%, rgba(0, 0, 0, 0.04) 100%),
+    linear-gradient(var(--silk-angle, 156deg), #F7F3EE 0%, #E8B8AC 37%, #F0D6D9 70%, #F5EDE0 100%);
+  background-size: 120px 120px, auto, auto;
+  background-blend-mode: overlay, normal, normal;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

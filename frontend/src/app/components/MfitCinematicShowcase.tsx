@@ -184,7 +184,7 @@ export function MfitCinematicShowcase({
   cardDescription = (
     <>
       <span className="text-white font-semibold">MFIT Personal</span> te dá a ficha do dia,
-      o histórico de evolução e contato direto com seu personal — pensado pra você, na
+      o histórico de evolução e contato direto com seu personal, pensado pra você, na
       palma da mão.
     </>
   ),
@@ -241,7 +241,7 @@ export function MfitCinematicShowcase({
     const isMobile = window.innerWidth < 768;
     // Shorter scrub distance on mobile so the takeover doesn't turn into an
     // endless scroll on small screens, while keeping the same choreography.
-    const scrollLength = isMobile ? 4200 : 7000;
+    const scrollLength = isMobile ? 2400 : 3600;
 
     const ctx = gsap.context(() => {
       gsap.set(".text-track", { autoAlpha: 0, y: 60, scale: 0.85, filter: "blur(20px)", rotationX: -20 });

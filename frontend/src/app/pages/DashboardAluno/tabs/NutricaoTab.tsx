@@ -91,7 +91,7 @@ export const NutricaoTab = () => {
           <div>
             <p className="text-sm leading-relaxed text-complexo-light/90">
               "Rafael, ótima semana de adesão ao plano! Vamos ajustar o jantar de quinta para incluir mais
-              fibras — conversamos na próxima consulta."
+              fibras. Conversamos na próxima consulta."
             </p>
             <p className="mt-2 text-xs uppercase tracking-widest text-complexo-muted">Lara Maia · há 2 dias</p>
           </div>

@@ -157,7 +157,7 @@ const Universo = () => (
           Quatro negócios, um só ecossistema
         </h2>
         <p className="mt-4 text-lg text-complexo-muted">
-          Tudo conectado para acelerar sua evolução — do treino à recuperação e à alimentação.
+          Tudo conectado para acelerar sua evolução, do treino à recuperação e à alimentação.
         </p>
       </Reveal>
 
@@ -441,7 +441,7 @@ const Avaliacoes = () => (
           Sua opinião constrói a Complexo
         </h2>
         <p className="mt-4 text-lg text-complexo-muted">
-          Ainda não temos avaliações públicas por aqui — e preferimos deixar em branco a
+          Ainda não temos avaliações públicas por aqui. Preferimos deixar em branco a
           inventar alguma. Assim que os primeiros alunos avaliarem, elas aparecem nesta seção.
         </p>
       </Reveal>
@@ -459,7 +459,7 @@ const Avaliacoes = () => (
             </h3>
             <p className="mx-auto mt-2 max-w-md text-sm text-complexo-muted">
               Treinou, fez pilates, consultou com a nutricionista ou comprou na loja? Conte
-              como foi — sua avaliação ajuda outras pessoas a conhecerem a Complexo.
+              como foi: sua avaliação ajuda outras pessoas a conhecerem a Complexo.
             </p>
           </div>
           <a
@@ -474,7 +474,7 @@ const Avaliacoes = () => (
             Deixar minha avaliação
           </a>
           <p className="text-xs text-complexo-muted">
-            Em breve, integradas ao Google Reviews — por enquanto, enviadas direto pra nossa equipe.
+            Em breve, integradas ao Google Reviews. Por enquanto, enviadas direto pra nossa equipe.
           </p>
         </div>
       </Reveal>

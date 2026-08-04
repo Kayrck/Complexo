@@ -68,7 +68,7 @@ export const Pilates = () => {
             </h1>
             <p className="mx-auto mt-6 max-w-md text-lg text-pilates-muted">
               Um estúdio leve e acolhedor para cuidar do corpo com método e
-              atenção individual — o contraponto perfeito ao treino intenso.
+              atenção individual. O contraponto perfeito ao treino intenso.
             </p>
             <a
               href="#agendar"
