@@ -6,6 +6,7 @@ import {
   Salad,
   HeartPulse,
   ShoppingBag,
+  Package,
   DollarSign,
   CalendarDays,
   FileBarChart,
@@ -18,6 +19,7 @@ import { ProfessoresTab } from "./tabs/ProfessoresTab";
 import { NutricionistaTab } from "./tabs/NutricionistaTab";
 import { PilatesTab } from "./tabs/PilatesTab";
 import { LojaTab } from "./tabs/LojaTab";
+import { EstoqueTab } from "./tabs/EstoqueTab";
 import { FinanceiroTab } from "./tabs/FinanceiroTab";
 import { AgendaTab } from "./tabs/AgendaTab";
 import { RelatoriosTab } from "./tabs/RelatoriosTab";
@@ -30,6 +32,7 @@ const NAV_ITEMS: DashboardNavItem[] = [
   { id: "nutricionista", label: "Nutricionista", icon: Salad },
   { id: "pilates", label: "Pilates", icon: HeartPulse },
   { id: "loja", label: "Loja", icon: ShoppingBag },
+  { id: "estoque", label: "Estoque", icon: Package },
   { id: "financeiro", label: "Financeiro", icon: DollarSign },
   { id: "agenda", label: "Agenda Geral", icon: CalendarDays },
   { id: "relatorios", label: "Relatórios", icon: FileBarChart },
@@ -44,6 +47,7 @@ const TAB_COMPONENTS: Record<string, () => React.ReactElement> = {
   nutricionista: NutricionistaTab,
   pilates: PilatesTab,
   loja: LojaTab,
+  estoque: EstoqueTab,
   financeiro: FinanceiroTab,
   agenda: AgendaTab,
   relatorios: RelatoriosTab,

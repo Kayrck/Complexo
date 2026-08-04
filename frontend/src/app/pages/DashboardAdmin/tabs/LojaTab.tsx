@@ -1,10 +1,8 @@
-import { Package, ShoppingCart, AlertTriangle, Truck } from "lucide-react";
+import { ShoppingCart, Package, Truck } from "lucide-react";
 import { StatCard } from "../../../components/dashboard/StatCard";
 import { SectionCard } from "../../../components/dashboard/SectionCard";
 import { StatusBadge } from "../../../components/dashboard/StatusBadge";
-import { PRODUCTS } from "../../../data";
-
-const STOCK_LEVELS = [18, 6, 24, 3, 40, 12, 9, 2, 27];
+import { useAppContext } from "../../../context";
 
 const PEDIDOS = [
   { id: "#CPLX-4021", customer: "Marcos Andrade", items: "Whey Isolate ×2", total: "R$378", status: "Confirmado" },
@@ -20,49 +18,22 @@ const FORNECEDORES = [
 ];
 
 export const LojaTab = () => {
-  const lowStock = PRODUCTS.filter((_, i) => STOCK_LEVELS[i] <= 6);
+  const { products } = useAppContext();
 
   return (
     <div className="space-y-6">
       <div>
         <h2 className="font-rajdhani text-3xl font-bold uppercase text-complexo-light">Loja de suplementos</h2>
-        <p className="text-complexo-muted">Estoque, pedidos e fornecedores da Complexo Suplementos.</p>
+        <p className="text-complexo-muted">
+          Vendas, pedidos e fornecedores da Complexo Suplementos — estoque e publicação de produtos ficam na aba
+          Estoque.
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <StatCard icon={ShoppingCart} label="Vendas no mês" value="R$24.000" trend="+18%" trendPositive />
-        <StatCard icon={Package} label="Produtos cadastrados" value={`${PRODUCTS.length}`} />
-        <StatCard icon={AlertTriangle} label="Estoque baixo" value={`${lowStock.length}`} suffix="produtos" />
+        <StatCard icon={Package} label="Produtos cadastrados" value={`${products.length}`} />
       </div>
-
-      <SectionCard title="Estoque de produtos">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm">
-            <thead className="text-xs uppercase text-complexo-muted">
-              <tr className="border-b border-complexo-light/10">
-                <th className="py-3 pr-4 font-medium">Produto</th>
-                <th className="py-3 pr-4 font-medium">Categoria</th>
-                <th className="py-3 pr-4 font-medium">Preço</th>
-                <th className="py-3 pr-0 font-medium">Em estoque</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-complexo-light/10">
-              {PRODUCTS.map((p, i) => (
-                <tr key={p.id}>
-                  <td className="py-3 pr-4 font-medium text-complexo-light">{p.name}</td>
-                  <td className="py-3 pr-4 text-complexo-muted">{p.category}</td>
-                  <td className="py-3 pr-4 text-complexo-muted">R${p.price}</td>
-                  <td className="py-3 pr-0">
-                    <span className={STOCK_LEVELS[i] <= 6 ? "font-semibold text-red-400" : "text-complexo-light"}>
-                      {STOCK_LEVELS[i]} un.
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </SectionCard>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <SectionCard title="Pedidos recentes">

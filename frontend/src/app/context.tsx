@@ -4,6 +4,9 @@ import { Product, PRODUCTS } from "./data";
 type CartItem = Product & { quantity: number };
 
 interface AppContextType {
+  products: Product[];
+  addProduct: (product: Product) => void;
+  updateProductStock: (productId: string, stock: number) => void;
   cart: CartItem[];
   addToCart: (productId: string) => void;
   removeFromCart: (productId: string) => void;
@@ -18,9 +21,18 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
+  const [products, setProducts] = useState<Product[]>(PRODUCTS);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
+
+  const addProduct = (product: Product) => {
+    setProducts((prev) => [product, ...prev]);
+  };
+
+  const updateProductStock = (productId: string, stock: number) => {
+    setProducts((prev) => prev.map((p) => (p.id === productId ? { ...p, stock: Math.max(0, stock) } : p)));
+  };
 
   const addToCart = (productId: string) => {
     setCart((prev) => {
@@ -30,7 +42,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
           item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
-      const product = PRODUCTS.find((p) => p.id === productId);
+      const product = products.find((p) => p.id === productId);
       if (product) {
         return [...prev, { ...product, quantity: 1 }];
       }
@@ -66,6 +78,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AppContext.Provider
       value={{
+        products,
+        addProduct,
+        updateProductStock,
         cart,
         addToCart,
         removeFromCart,

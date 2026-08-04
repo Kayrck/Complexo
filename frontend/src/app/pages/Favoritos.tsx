@@ -1,14 +1,13 @@
 import { HeartOff } from "lucide-react";
 import { useAppContext } from "../context";
-import { PRODUCTS } from "../data";
 import { Link } from "react-router";
 import { Reveal } from "../components/Reveal";
 import { ProductCard } from "../components/ProductCard";
 
 export const Favoritos = () => {
-  const { cart, favorites, toggleFavorite, addToCart } = useAppContext();
+  const { products, cart, favorites, toggleFavorite, addToCart } = useAppContext();
 
-  const favoriteProducts = PRODUCTS.filter((p) => favorites.includes(p.id));
+  const favoriteProducts = products.filter((p) => favorites.includes(p.id));
 
   return (
     <div className="min-h-screen bg-complexo-dark pt-32 pb-24 lg:pt-40">

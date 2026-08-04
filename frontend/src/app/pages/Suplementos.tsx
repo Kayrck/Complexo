@@ -2,18 +2,20 @@ import { useMemo, useState } from "react";
 import { ShoppingBag } from "lucide-react";
 import { Reveal } from "../components/Reveal";
 import { ProductCard } from "../components/ProductCard";
-import { PRODUCTS } from "../data";
 import { useAppContext } from "../context";
-
-const CATEGORIES = ["Todos", ...Array.from(new Set(PRODUCTS.map((p) => p.category)))];
 
 export const Suplementos = () => {
   const [category, setCategory] = useState("Todos");
-  const { cart, addToCart, setIsCartOpen, favorites, toggleFavorite } = useAppContext();
+  const { products, cart, addToCart, setIsCartOpen, favorites, toggleFavorite } = useAppContext();
+
+  const categories = useMemo(
+    () => ["Todos", ...Array.from(new Set(products.map((p) => p.category)))],
+    [products],
+  );
 
   const filtered = useMemo(
-    () => (category === "Todos" ? PRODUCTS : PRODUCTS.filter((p) => p.category === category)),
-    [category],
+    () => (category === "Todos" ? products : products.filter((p) => p.category === category)),
+    [products, category],
   );
 
   const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
@@ -51,7 +53,7 @@ export const Suplementos = () => {
 
         {/* Filters */}
         <div className="mt-10 flex flex-wrap gap-2">
-          {CATEGORIES.map((c) => (
+          {categories.map((c) => (
             <button
               key={c}
               onClick={() => setCategory(c)}

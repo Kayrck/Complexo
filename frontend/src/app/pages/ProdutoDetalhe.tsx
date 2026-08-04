@@ -4,13 +4,12 @@ import { ArrowLeft, Heart, Minus, Plus, ShoppingBag, Check } from "lucide-react"
 import { Reveal } from "../components/Reveal";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { ProductCard } from "../components/ProductCard";
-import { getProduct, PRODUCTS } from "../data";
 import { useAppContext } from "../context";
 
 export const ProdutoDetalhe = () => {
   const { id } = useParams();
-  const product = getProduct(id);
-  const { cart, addToCart, favorites, toggleFavorite, setIsCartOpen } = useAppContext();
+  const { products, cart, addToCart, favorites, toggleFavorite, setIsCartOpen } = useAppContext();
+  const product = products.find((p) => p.id === id);
   const [qty, setQty] = useState(1);
 
   if (!product) {
@@ -32,7 +31,7 @@ export const ProdutoDetalhe = () => {
 
   const isFavorite = favorites.includes(product.id);
   const inCart = cart.some((item) => item.id === product.id);
-  const related = PRODUCTS.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 3);
+  const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 3);
 
   const handleAdd = () => {
     for (let i = 0; i < qty; i++) addToCart(product.id);
@@ -78,19 +77,23 @@ export const ProdutoDetalhe = () => {
 
             <div className="mt-6 flex items-baseline gap-2">
               <span className="font-rajdhani text-4xl font-bold">R${product.price}</span>
-              <span className="text-sm text-complexo-muted">
-                {product.servingsPerContainer} doses por pote
-              </span>
+              {product.servingsPerContainer && (
+                <span className="text-sm text-complexo-muted">
+                  {product.servingsPerContainer} doses por pote
+                </span>
+              )}
             </div>
 
-            <ul className="mt-6 space-y-2.5">
-              {product.benefits.map((b) => (
-                <li key={b} className="flex items-start gap-2.5 text-sm">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-complexo-red" />
-                  <span className="text-complexo-light/85">{b}</span>
-                </li>
-              ))}
-            </ul>
+            {product.benefits && product.benefits.length > 0 && (
+              <ul className="mt-6 space-y-2.5">
+                {product.benefits.map((b) => (
+                  <li key={b} className="flex items-start gap-2.5 text-sm">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-complexo-red" />
+                    <span className="text-complexo-light/85">{b}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <div className="flex items-center rounded-full border border-complexo-light/10 bg-complexo-surface px-2 py-1">
@@ -131,34 +134,54 @@ export const ProdutoDetalhe = () => {
           </Reveal>
         </div>
 
-        {/* Details */}
-        <div className="mt-20 grid grid-cols-1 gap-6 lg:grid-cols-3">
-          <Reveal className="lg:col-span-2">
-            <div className="h-full rounded-2xl border border-complexo-light/10 bg-complexo-surface p-7">
-              <h2 className="font-rajdhani text-2xl font-bold uppercase">Como usar</h2>
-              <p className="mt-3 text-complexo-muted">{product.howToUse}</p>
-              <p className="mt-2 text-sm text-complexo-muted">Porção: {product.servingSize}</p>
+        {/* Details — only for products that already have this filled in */}
+        {(product.howToUse || product.ingredients || (product.nutritionFacts && product.nutritionFacts.length > 0)) && (
+          <div className="mt-20 grid grid-cols-1 gap-6 lg:grid-cols-3">
+            {(product.howToUse || product.ingredients) && (
+              <Reveal className="lg:col-span-2">
+                <div className="h-full rounded-2xl border border-complexo-light/10 bg-complexo-surface p-7">
+                  {product.howToUse && (
+                    <>
+                      <h2 className="font-rajdhani text-2xl font-bold uppercase">Como usar</h2>
+                      <p className="mt-3 text-complexo-muted">{product.howToUse}</p>
+                      {product.servingSize && (
+                        <p className="mt-2 text-sm text-complexo-muted">Porção: {product.servingSize}</p>
+                      )}
+                    </>
+                  )}
 
-              <h2 className="mt-8 font-rajdhani text-2xl font-bold uppercase">Ingredientes</h2>
-              <p className="mt-3 text-sm text-complexo-muted">{product.ingredients}</p>
-            </div>
-          </Reveal>
+                  {product.ingredients && (
+                    <>
+                      <h2 className={product.howToUse ? "mt-8 font-rajdhani text-2xl font-bold uppercase" : "font-rajdhani text-2xl font-bold uppercase"}>
+                        Ingredientes
+                      </h2>
+                      <p className="mt-3 text-sm text-complexo-muted">{product.ingredients}</p>
+                    </>
+                  )}
+                </div>
+              </Reveal>
+            )}
 
-          <Reveal delay={0.1}>
-            <div className="h-full rounded-2xl border border-complexo-light/10 bg-complexo-surface p-7">
-              <h2 className="font-rajdhani text-2xl font-bold uppercase">Tabela nutricional</h2>
-              <p className="mt-1 text-xs text-complexo-muted">Porção de {product.servingSize}</p>
-              <div className="mt-5 divide-y divide-complexo-light/10">
-                {product.nutritionFacts.map((fact) => (
-                  <div key={fact.label} className="flex items-center justify-between py-2.5 text-sm">
-                    <span className="text-complexo-muted">{fact.label}</span>
-                    <span className="font-semibold text-complexo-light">{fact.value}</span>
+            {product.nutritionFacts && product.nutritionFacts.length > 0 && (
+              <Reveal delay={0.1}>
+                <div className="h-full rounded-2xl border border-complexo-light/10 bg-complexo-surface p-7">
+                  <h2 className="font-rajdhani text-2xl font-bold uppercase">Tabela nutricional</h2>
+                  {product.servingSize && (
+                    <p className="mt-1 text-xs text-complexo-muted">Porção de {product.servingSize}</p>
+                  )}
+                  <div className="mt-5 divide-y divide-complexo-light/10">
+                    {product.nutritionFacts.map((fact) => (
+                      <div key={fact.label} className="flex items-center justify-between py-2.5 text-sm">
+                        <span className="text-complexo-muted">{fact.label}</span>
+                        <span className="font-semibold text-complexo-light">{fact.value}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-        </div>
+                </div>
+              </Reveal>
+            )}
+          </div>
+        )}
 
         {/* Related */}
         {related.length > 0 && (

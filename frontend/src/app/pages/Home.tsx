@@ -14,7 +14,8 @@ import {
 import { Bolt3D } from "../components/Bolt3D";
 import { Reveal } from "../components/Reveal";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
-import { PLANS, PRODUCTS, UNIVERSE, getBusiness } from "../data";
+import { PLANS, UNIVERSE, getBusiness } from "../data";
+import { useAppContext } from "../context";
 
 export const Home = () => {
   return (
@@ -341,7 +342,10 @@ const PlanosPreview = () => (
 
 /* ---------------------------- LOJA ---------------------------- */
 
-const Loja = () => (
+const Loja = () => {
+  const { products } = useAppContext();
+
+  return (
   <section className="border-t border-complexo-light/10 bg-complexo-panel py-24 lg:py-32">
     <div className="mx-auto max-w-7xl px-5 lg:px-8">
       <Reveal className="flex flex-wrap items-end justify-between gap-4">
@@ -362,7 +366,7 @@ const Loja = () => (
 
     {/* horizontal snap carousel */}
     <div className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-4 lg:px-8 [scrollbar-width:none]">
-      {PRODUCTS.map((p) => (
+      {products.map((p) => (
         <Link
           key={p.id}
           to={`/suplementos/${p.id}`}
@@ -390,7 +394,8 @@ const Loja = () => (
       ))}
     </div>
   </section>
-);
+  );
+};
 
 /* ------------------------ PILATES TEASE ------------------------ */
 

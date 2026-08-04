@@ -2,7 +2,6 @@ import { createBrowserRouter, Outlet, useLocation } from "react-router";
 import { useEffect } from "react";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
-import { AppProvider } from "./context";
 import { CartDrawer } from "./components/CartDrawer";
 import { Home } from "./pages/Home";
 import { Academia } from "./pages/Academia";
@@ -29,25 +28,23 @@ const ScrollToTop = () => {
 };
 
 const RootLayout = () => (
-  <AppProvider>
-    <div className="flex min-h-screen w-full flex-col bg-complexo-dark text-complexo-light">
-      <ScrollToTop />
-      <Navbar />
-      <main className="w-full flex-grow">
-        <Outlet />
-      </main>
-      <Footer />
-      <CartDrawer />
-    </div>
-  </AppProvider>
+  <div className="flex min-h-screen w-full flex-col bg-complexo-dark text-complexo-light">
+    <ScrollToTop />
+    <Navbar />
+    <main className="w-full flex-grow">
+      <Outlet />
+    </main>
+    <Footer />
+    <CartDrawer />
+  </div>
 );
 
 const BareLayout = () => (
-  <AppProvider>
+  <>
     <ScrollToTop />
     <Outlet />
     <CartDrawer />
-  </AppProvider>
+  </>
 );
 
 const ProtectedAluno = () => (

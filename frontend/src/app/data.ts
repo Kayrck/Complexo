@@ -94,12 +94,18 @@ export interface Product {
   blurb: string;
   /** Longer, detail-page description. */
   description: string;
-  servingSize: string;
-  servingsPerContainer: number;
-  howToUse: string;
-  benefits: string[];
-  nutritionFacts: NutritionFact[];
-  ingredients: string;
+  /** Units currently in stock at the Suplementos unit. */
+  stock: number;
+  /** Units sold in the current month — feeds the admin's best-sellers panorama. */
+  unitsSold: number;
+  /** Detail fields — optional since a freshly published product may not have
+   * all of this filled in yet. */
+  servingSize?: string;
+  servingsPerContainer?: number;
+  howToUse?: string;
+  benefits?: string[];
+  nutritionFacts?: NutritionFact[];
+  ingredients?: string;
 }
 
 export const PRODUCTS: Product[] = [
@@ -111,6 +117,8 @@ export const PRODUCTS: Product[] = [
     accent: "#E10600",
     image: wheyImg,
     blurb: "27g de proteína por dose, absorção rápida.",
+    stock: 18,
+    unitsSold: 142,
     description:
       "Proteína isolada do soro do leite, com absorção rápida e baixo teor de carboidratos e gordura. Ideal para o pós-treino, quando o corpo mais precisa de aminoácidos para iniciar a recuperação muscular.",
     servingSize: "1 scoop (30g)",
@@ -139,6 +147,8 @@ export const PRODUCTS: Product[] = [
     accent: "#2b6fff",
     image: creatinaImg,
     blurb: "Força e volume com 5g de creatina pura.",
+    stock: 6,
+    unitsSold: 118,
     description:
       "Um dos suplementos mais estudados do mercado, ajuda a aumentar a força, a potência e o volume muscular. Ótima para quem treina musculação com foco em ganho de performance.",
     servingSize: "1 dose (5g)",
@@ -164,6 +174,8 @@ export const PRODUCTS: Product[] = [
     accent: "#ff7a00",
     image: preTreinoImg,
     blurb: "Foco e energia explosiva para o treino.",
+    stock: 24,
+    unitsSold: 76,
     description: "Fórmula estimulante para energia e foco explosivos, pensada pra quem quer levar cada treino ao limite.",
     servingSize: "1 dose (10g)",
     servingsPerContainer: 30,
@@ -190,6 +202,8 @@ export const PRODUCTS: Product[] = [
     accent: "#16a34a",
     image: bcaaImg,
     blurb: "Aminoácidos para recuperação muscular.",
+    stock: 3,
+    unitsSold: 54,
     description: "Aminoácidos de cadeia ramificada para reduzir o catabolismo muscular e acelerar a recuperação entre os treinos.",
     servingSize: "1 dose (10g)",
     servingsPerContainer: 30,
@@ -217,6 +231,8 @@ export const PRODUCTS: Product[] = [
     accent: "#9333ea",
     image: multiImg,
     blurb: "Suporte diário completo de vitaminas.",
+    stock: 40,
+    unitsSold: 39,
     description: "Suporte diário completo com vitaminas e minerais essenciais para manter o corpo em equilíbrio, mesmo na rotina mais corrida.",
     servingSize: "1 cápsula",
     servingsPerContainer: 60,
@@ -244,6 +260,8 @@ export const PRODUCTS: Product[] = [
     accent: "#db2777",
     image: colagenoImg,
     blurb: "Articulações, pele e tecidos saudáveis.",
+    stock: 12,
+    unitsSold: 61,
     description: "Colágeno tipo I e III hidrolisado, formulado para apoiar a saúde da pele, cabelos, unhas e articulações.",
     servingSize: "1 dose (10g)",
     servingsPerContainer: 30,
@@ -269,6 +287,8 @@ export const PRODUCTS: Product[] = [
     accent: "#0891b2",
     image: omegaImg,
     blurb: "Saúde cardiovascular e função cerebral em dia.",
+    stock: 9,
+    unitsSold: 47,
     description: "Ácidos graxos EPA e DHA para apoiar a saúde cardiovascular, cognitiva e o processo de recuperação do corpo.",
     servingSize: "2 cápsulas",
     servingsPerContainer: 60,
@@ -294,6 +314,8 @@ export const PRODUCTS: Product[] = [
     accent: "#ca8a04",
     image: hipercaloricoImg,
     blurb: "Calorias de qualidade para ganho de massa real.",
+    stock: 2,
+    unitsSold: 33,
     description: "Calorias de qualidade em cada dose, combinando carboidratos, proteínas e gorduras boas para quem busca ganho de massa real.",
     servingSize: "2 scoops (150g)",
     servingsPerContainer: 20,
@@ -320,6 +342,8 @@ export const PRODUCTS: Product[] = [
     accent: "#65a30d",
     image: glutaminaImg,
     blurb: "Reduz o catabolismo e acelera a recuperação muscular.",
+    stock: 27,
+    unitsSold: 28,
     description: "Aminoácido mais abundante no corpo, ajuda a reduzir o catabolismo muscular e apoia o sistema imunológico em períodos de treino intenso.",
     servingSize: "1 dose (5g)",
     servingsPerContainer: 60,
