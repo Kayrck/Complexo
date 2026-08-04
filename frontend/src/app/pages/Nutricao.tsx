@@ -215,14 +215,14 @@ export const Nutricao = () => (
         </Reveal>
 
         <Reveal delay={0.1} className="flex justify-center">
-          <div className="animate-float w-[260px]">
+          <div className="animate-float w-[280px]">
             <div className="rounded-[2.5rem] border border-complexo-light/10 bg-complexo-dark p-3 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.5)]">
               <div className="overflow-hidden rounded-[2rem] bg-complexo-surface">
                 <div className="flex items-center justify-center bg-complexo-dark py-3">
                   <div className="h-1.5 w-16 rounded-full bg-complexo-light/15" />
                 </div>
 
-                <div className="space-y-5 px-4 pb-6">
+                <div className="flex min-h-[540px] flex-col justify-between space-y-8 px-4 pb-8 pt-2">
                   <div className="flex items-center gap-2 pt-1">
                     <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-complexo-red">
                       <Smartphone className="h-4 w-4 text-white" />

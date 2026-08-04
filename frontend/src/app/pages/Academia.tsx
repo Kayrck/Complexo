@@ -17,7 +17,6 @@ import { getBusiness } from "../data";
 import ambienteNovo from "../../imports/academia/academia-sala-vermelha.png";
 import ambiente1 from "../../imports/academia/Ambiente_academia_1.png";
 import ambiente2 from "../../imports/academia/Ambiente_academia_2.png";
-import ambiente4 from "../../imports/academia/Ambiente_academia_4.png";
 import ambiente6 from "../../imports/academia/Ambiente_academia_6.png";
 
 const academia = getBusiness("academia")!;
@@ -31,7 +30,7 @@ const FEATURES = [
   { icon: Clock, title: "Horário estendido", desc: "Aberto cedo e até tarde para a sua rotina." },
 ];
 
-const GALLERY = [ambienteNovo, ambiente1, ambiente2, ambiente4, ambiente6];
+const GALLERY = [ambienteNovo, ambiente1, ambiente2, ambiente6];
 
 export const Academia = () => (
   <div className="bg-complexo-dark">
@@ -73,6 +72,28 @@ export const Academia = () => (
       </div>
     </section>
 
+    {/* Gallery */}
+    <section className="border-t border-complexo-light/10 bg-complexo-panel py-20 lg:py-28">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <Reveal>
+          <h2 className="font-rajdhani text-3xl font-bold uppercase lg:text-4xl">A estrutura</h2>
+        </Reveal>
+        <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {GALLERY.map((src, i) => (
+            <Reveal key={src} delay={i * 0.06}>
+              <div className={`overflow-hidden rounded-2xl ${i % 2 === 0 ? "aspect-[4/5]" : "aspect-[4/3] lg:mt-12"}`}>
+                <ImageWithFallback
+                  src={src}
+                  alt={`Estrutura da academia ${i + 1}`}
+                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                />
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+
     {/* Features */}
     <section className="border-t border-complexo-light/10 py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
@@ -97,27 +118,8 @@ export const Academia = () => (
       </div>
     </section>
 
-    {/* Gallery */}
-    <section className="border-t border-complexo-light/10 bg-complexo-panel py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <Reveal>
-          <h2 className="font-rajdhani text-3xl font-bold uppercase lg:text-4xl">A estrutura</h2>
-        </Reveal>
-        <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
-          {GALLERY.map((src, i) => (
-            <Reveal key={src} delay={i * 0.06}>
-              <div className={`overflow-hidden rounded-2xl ${i % 2 === 0 ? "aspect-[4/5]" : "aspect-[4/3] lg:mt-12"}`}>
-                <ImageWithFallback
-                  src={src}
-                  alt={`Estrutura da academia ${i + 1}`}
-                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
+    {/* App MFIT Personal — cinematic showcase */}
+    <MfitCinematicShowcase />
 
     {/* Info + CTA */}
     <section className="border-t border-complexo-light/10 py-20 lg:py-28">
@@ -171,8 +173,5 @@ export const Academia = () => (
         </Reveal>
       </div>
     </section>
-
-    {/* App MFIT Personal — cinematic showcase */}
-    <MfitCinematicShowcase />
   </div>
 );

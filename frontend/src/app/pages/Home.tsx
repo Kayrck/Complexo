@@ -124,8 +124,8 @@ const Hero = () => (
 
 const STATS = [
   { value: "1.500+", label: "Alunos ativos" },
-  { value: "~4", label: "Anos de mercado" },
-  { value: "4", label: "Unidades de negócio" },
+  { value: "4", label: "Anos de mercado" },
+  { value: "3", label: "Unidades de negócio" },
   { value: "9+", label: "Serviços de bem-estar" },
 ];
 

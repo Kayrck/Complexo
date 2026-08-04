@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { LogOut, Menu, X, type LucideIcon } from "lucide-react";
 import { useState } from "react";
 import { BoltMark } from "../BoltMark";
+import { logout } from "../../auth";
 
 export interface DashboardNavItem {
   id: string;
@@ -83,6 +84,7 @@ export const DashboardShell = ({
           ))}
           <Link
             to="/"
+            onClick={logout}
             className="flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-complexo-muted hover:bg-complexo-light/5 hover:text-complexo-light"
           >
             <LogOut className="h-4 w-4" /> Sair
@@ -125,6 +127,7 @@ export const DashboardShell = ({
             ))}
             <Link
               to="/"
+              onClick={logout}
               className="flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-complexo-muted hover:bg-complexo-light/5 hover:text-complexo-light"
             >
               <LogOut className="h-4 w-4" /> Sair

@@ -17,6 +17,7 @@ import { Favoritos } from "./pages/Favoritos";
 import { DashboardAluno } from "./pages/DashboardAluno";
 import { DashboardAdmin } from "./pages/DashboardAdmin";
 import { Onboarding } from "./pages/Onboarding";
+import { RequireRole } from "./components/RequireRole";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -48,6 +49,18 @@ const BareLayout = () => (
   </AppProvider>
 );
 
+const ProtectedAluno = () => (
+  <RequireRole role="aluno">
+    <DashboardAluno />
+  </RequireRole>
+);
+
+const ProtectedAdmin = () => (
+  <RequireRole role="admin">
+    <DashboardAdmin />
+  </RequireRole>
+);
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -70,8 +83,8 @@ export const router = createBrowserRouter([
     children: [
       { path: "login", Component: Login },
       { path: "cadastro", Component: Onboarding },
-      { path: "dashboard/aluno", Component: DashboardAluno },
-      { path: "dashboard/admin", Component: DashboardAdmin },
+      { path: "dashboard/aluno", Component: ProtectedAluno },
+      { path: "dashboard/admin", Component: ProtectedAdmin },
     ],
   },
 ]);

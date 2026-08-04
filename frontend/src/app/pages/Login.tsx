@@ -1,11 +1,35 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { Mail, Lock, ArrowRight } from "lucide-react";
+import { Mail, Lock, ArrowRight, AlertCircle, Info } from "lucide-react";
 import { BoltMark } from "../components/BoltMark";
+import { login, DEMO_CREDENTIALS } from "../auth";
 
 export const Login = () => {
   const navigate = useNavigate();
   const [mode, setMode] = useState<"login" | "signup">("login");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    if (mode === "signup") {
+      // Sem cadastro real ainda — a conta de demonstração do aluno serve
+      // como o "novo aluno" para efeito de protótipo.
+      login("aluno@complexo.com", "123456");
+      navigate("/dashboard/aluno");
+      return;
+    }
+
+    const role = login(email, password);
+    if (!role) {
+      setError("E-mail ou senha inválidos. Use um dos acessos de demonstração abaixo.");
+      return;
+    }
+    navigate(role === "admin" ? "/dashboard/admin" : "/dashboard/aluno");
+  };
 
   return (
     <div className="grid min-h-screen grid-cols-1 lg:grid-cols-2">
@@ -31,7 +55,7 @@ export const Login = () => {
             </p>
           </div>
           <p className="font-mono text-xs uppercase tracking-widest text-complexo-muted">
-            Área do Aluno · Grupo Complexo
+            Login · Grupo Complexo
           </p>
         </div>
       </div>
@@ -48,18 +72,14 @@ export const Login = () => {
               : "Comece a acompanhar sua jornada."}
           </p>
 
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              navigate("/dashboard/aluno");
-            }}
-            className="mt-8 space-y-4"
-          >
+          <form onSubmit={handleSubmit} className="mt-8 space-y-4">
             <div className="relative">
               <Mail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-complexo-muted" />
               <input
                 required
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="E-mail"
                 className="w-full rounded-xl border border-complexo-light/10 bg-complexo-surface py-3.5 pl-12 pr-4 placeholder:text-complexo-muted/60 focus:border-complexo-red focus:outline-none"
               />
@@ -69,10 +89,20 @@ export const Login = () => {
               <input
                 required
                 type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Senha"
                 className="w-full rounded-xl border border-complexo-light/10 bg-complexo-surface py-3.5 pl-12 pr-4 placeholder:text-complexo-muted/60 focus:border-complexo-red focus:outline-none"
               />
             </div>
+
+            {error && (
+              <p className="flex items-start gap-2 text-sm text-complexo-red">
+                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                {error}
+              </p>
+            )}
+
             <button
               type="submit"
               className="flex w-full items-center justify-center gap-2 rounded-full bg-complexo-red px-7 py-3.5 font-semibold text-white hover:bg-complexo-red-bright"
@@ -85,12 +115,35 @@ export const Login = () => {
           <p className="mt-6 text-center text-sm text-complexo-muted">
             {mode === "login" ? "Ainda não tem conta? " : "Já tem conta? "}
             <button
-              onClick={() => setMode(mode === "login" ? "signup" : "login")}
+              onClick={() => {
+                setMode(mode === "login" ? "signup" : "login");
+                setError(null);
+              }}
               className="font-semibold text-complexo-red"
             >
               {mode === "login" ? "Cadastre-se" : "Entrar"}
             </button>
           </p>
+
+          {mode === "login" && (
+            <div className="mt-8 rounded-xl border border-dashed border-complexo-light/15 bg-complexo-surface p-4">
+              <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-complexo-muted">
+                <Info className="h-3.5 w-3.5" /> Acessos de demonstração
+              </p>
+              <ul className="mt-3 space-y-2 text-sm">
+                {DEMO_CREDENTIALS.map((cred) => (
+                  <li key={cred.email} className="flex flex-wrap items-center justify-between gap-x-3 gap-y-0.5">
+                    <span className="text-complexo-light/90">
+                      {cred.role === "admin" ? "Administrador" : "Aluno"}
+                    </span>
+                    <span className="font-mono text-xs text-complexo-muted">
+                      {cred.email} · {cred.password}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>
