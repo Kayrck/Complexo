@@ -1,15 +1,6 @@
-import { Pencil, ShieldCheck, Building2, Clock, Users2 } from "lucide-react";
+import { Pencil, Building2, Clock } from "lucide-react";
 import { SectionCard } from "../../../components/dashboard/SectionCard";
-import { StatusBadge } from "../../../components/dashboard/StatusBadge";
 import { PLANS, BUSINESSES } from "../../../data";
-
-const FUNCIONARIOS = [
-  { name: "João Diretor", role: "Administrador", access: "Total", status: "Ativo" },
-  { name: "André Nogueira", role: "Personal Trainer", access: "Alunos e Agenda", status: "Ativo" },
-  { name: "Lara Maia", role: "Nutricionista", access: "Pacientes e Nutrição", status: "Ativo" },
-  { name: "Renata Alves", role: "Instrutora de Pilates", access: "Agenda Pilates", status: "Ativo" },
-  { name: "Camila Ferreira", role: "Recepção", access: "Alunos e Financeiro", status: "Ativo" },
-];
 
 const HORARIOS = [
   { day: "Segunda a Sexta", value: "05h30 — 22h30" },
@@ -65,35 +56,8 @@ export const ConfiguracoesTab = () => (
       </SectionCard>
     </div>
 
-    <SectionCard title="Funcionários e permissões" action={<Users2 className="h-4 w-4 text-complexo-muted" />}>
-      <div className="overflow-x-auto">
-        <table className="w-full text-left text-sm">
-          <thead className="text-xs uppercase text-complexo-muted">
-            <tr className="border-b border-complexo-light/10">
-              <th className="py-3 pr-4 font-medium">Nome</th>
-              <th className="py-3 pr-4 font-medium">Função</th>
-              <th className="py-3 pr-4 font-medium">Acesso</th>
-              <th className="py-3 pr-0 font-medium">Status</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-complexo-light/10">
-            {FUNCIONARIOS.map((f) => (
-              <tr key={f.name}>
-                <td className="py-3 pr-4 font-medium text-complexo-light">{f.name}</td>
-                <td className="py-3 pr-4 text-complexo-muted">{f.role}</td>
-                <td className="py-3 pr-4 text-complexo-muted">
-                  <span className="flex items-center gap-1.5">
-                    <ShieldCheck className="h-3.5 w-3.5 text-complexo-red" /> {f.access}
-                  </span>
-                </td>
-                <td className="py-3 pr-0">
-                  <StatusBadge status={f.status} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </SectionCard>
+    <p className="text-sm text-complexo-muted">
+      Cadastro de funcionários, papéis e permissões agora tem aba própria — veja <span className="font-semibold text-complexo-light">Funcionários</span> no menu.
+    </p>
   </div>
 );

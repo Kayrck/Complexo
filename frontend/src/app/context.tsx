@@ -1,5 +1,10 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { Product, PRODUCTS } from "./data";
+import { Employee, EMPLOYEES, HourBankEntry, HOUR_BANK_ENTRIES, ScheduleChangeLog, SCHEDULE_CHANGES, type HourBankStatus } from "./hr";
+import type { PermissionKey } from "./rbac";
+import { AuditLogEntry, AUDIT_LOG_SEED, createAuditEntry } from "./auditLog";
+import { getEmployeeId } from "./auth";
+import { Receivable, RECEIVABLES, Payable, PAYABLES, type ReceivableStatus, type PayableStatus } from "./finance";
 
 type CartItem = Product & { quantity: number };
 
@@ -16,6 +21,20 @@ interface AppContextType {
   setIsCartOpen: (isOpen: boolean) => void;
   favorites: string[];
   toggleFavorite: (productId: string) => void;
+  employees: Employee[];
+  /** Funcionário da sessão atual (demo auth) — undefined se não houver sessão admin ativa. */
+  currentEmployee: Employee | undefined;
+  addEmployee: (employee: Employee) => void;
+  updateEmployeePermissions: (employeeId: string, overrides: Partial<Record<PermissionKey, boolean>>) => void;
+  auditLog: AuditLogEntry[];
+  logAudit: (entry: Omit<AuditLogEntry, "id" | "timestamp">) => void;
+  hourBankEntries: HourBankEntry[];
+  updateHourBankStatus: (entryId: string, status: HourBankStatus) => void;
+  scheduleChanges: ScheduleChangeLog[];
+  receivables: Receivable[];
+  updateReceivableStatus: (id: string, status: ReceivableStatus) => void;
+  payables: Payable[];
+  updatePayableStatus: (id: string, status: PayableStatus) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -25,6 +44,44 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
+  const [employees, setEmployees] = useState<Employee[]>(EMPLOYEES);
+  const [auditLog, setAuditLog] = useState<AuditLogEntry[]>(AUDIT_LOG_SEED);
+  const [hourBankEntries, setHourBankEntries] = useState<HourBankEntry[]>(HOUR_BANK_ENTRIES);
+  const [scheduleChanges] = useState<ScheduleChangeLog[]>(SCHEDULE_CHANGES);
+  const [receivables, setReceivables] = useState<Receivable[]>(RECEIVABLES);
+  const [payables, setPayables] = useState<Payable[]>(PAYABLES);
+
+  const currentEmployee = employees.find((e) => e.id === getEmployeeId());
+
+  const logAudit = (entry: Omit<AuditLogEntry, "id" | "timestamp">) => {
+    setAuditLog((prev) => [createAuditEntry(entry), ...prev]);
+  };
+
+  const updateHourBankStatus = (entryId: string, status: HourBankStatus) => {
+    setHourBankEntries((prev) => prev.map((e) => (e.id === entryId ? { ...e, status } : e)));
+  };
+
+  const today = () => new Date().toISOString().slice(0, 10);
+
+  const updateReceivableStatus = (id: string, status: ReceivableStatus) => {
+    setReceivables((prev) =>
+      prev.map((r) => (r.id === id ? { ...r, status, paidAt: status === "Pago" ? today() : r.paidAt } : r)),
+    );
+  };
+
+  const updatePayableStatus = (id: string, status: PayableStatus) => {
+    setPayables((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, status, paidAt: status === "Pago" ? today() : p.paidAt } : p)),
+    );
+  };
+
+  const addEmployee = (employee: Employee) => {
+    setEmployees((prev) => [employee, ...prev]);
+  };
+
+  const updateEmployeePermissions = (employeeId: string, overrides: Partial<Record<PermissionKey, boolean>>) => {
+    setEmployees((prev) => prev.map((e) => (e.id === employeeId ? { ...e, permissionOverrides: overrides } : e)));
+  };
 
   const addProduct = (product: Product) => {
     setProducts((prev) => [product, ...prev]);
@@ -90,6 +147,19 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         setIsCartOpen,
         favorites,
         toggleFavorite,
+        employees,
+        currentEmployee,
+        addEmployee,
+        updateEmployeePermissions,
+        auditLog,
+        logAudit,
+        hourBankEntries,
+        updateHourBankStatus,
+        scheduleChanges,
+        receivables,
+        updateReceivableStatus,
+        payables,
+        updatePayableStatus,
       }}
     >
       {children}

@@ -2,10 +2,13 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { Mail, Lock, ArrowRight, AlertCircle, Info } from "lucide-react";
 import { BoltMark } from "../components/BoltMark";
-import { login, DEMO_CREDENTIALS } from "../auth";
+import { login, DEMO_CREDENTIALS, getEmployeeId } from "../auth";
+import { useAppContext } from "../context";
+import { AUDIT_ACTIONS } from "../auditLog";
 
 export const Login = () => {
   const navigate = useNavigate();
+  const { employees, logAudit } = useAppContext();
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,9 +28,25 @@ export const Login = () => {
 
     const role = login(email, password);
     if (!role) {
+      logAudit({
+        actorId: null,
+        actorName: email.trim() || "desconhecido",
+        action: AUDIT_ACTIONS.ACCESS_DENIED,
+        details: `Tentativa de login mal-sucedida para "${email.trim()}".`,
+        severity: "warning",
+      });
       setError("E-mail ou senha inválidos. Use um dos acessos de demonstração abaixo.");
       return;
     }
+
+    const employee = employees.find((emp) => emp.id === getEmployeeId());
+    logAudit({
+      actorId: employee?.id ?? null,
+      actorName: employee?.name ?? email.trim(),
+      action: AUDIT_ACTIONS.LOGIN,
+      details: "Login realizado com sucesso.",
+      severity: "info",
+    });
     navigate(role === "admin" ? "/dashboard/admin" : "/dashboard/aluno");
   };
 
@@ -134,7 +153,7 @@ export const Login = () => {
                 {DEMO_CREDENTIALS.map((cred) => (
                   <li key={cred.email} className="flex flex-wrap items-center justify-between gap-x-3 gap-y-0.5">
                     <span className="text-complexo-light/90">
-                      {cred.role === "admin" ? "Administrador" : "Aluno"}
+                      {cred.label ?? (cred.role === "admin" ? "Administrador" : "Aluno")}
                     </span>
                     <span className="font-mono text-xs text-complexo-muted">
                       {cred.email} · {cred.password}
