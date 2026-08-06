@@ -5,6 +5,7 @@ import confetti from "canvas-confetti";
 import { getPlan, PLANS } from "../data";
 import { BoltMark } from "../components/BoltMark";
 import { useAppContext } from "../context";
+import { formatBRL } from "../inventory";
 
 const STEPS = ["Identificação", "Dados", "Endereço", "Pagamento", "Confirmação"];
 
@@ -160,9 +161,9 @@ export const Checkout = () => {
                         <Input placeholder="CVV" />
                       </div>
                       <select className="w-full rounded-xl border border-complexo-light/10 bg-complexo-panel px-4 py-4 focus:border-complexo-red focus:outline-none text-complexo-light appearance-none">
-                        <option value="1">1x de R${total} sem juros</option>
-                        <option value="2">2x de R${(total / 2).toFixed(2).replace(".", ",")} sem juros</option>
-                        <option value="3">3x de R${(total / 3).toFixed(2).replace(".", ",")} sem juros</option>
+                        <option value="1">1x de {formatBRL(total)} sem juros</option>
+                        <option value="2">2x de {formatBRL(total / 2)} sem juros</option>
+                        <option value="3">3x de {formatBRL(total / 3)} sem juros</option>
                       </select>
                     </div>
                   )}
@@ -250,7 +251,7 @@ export const Checkout = () => {
                           <p className="font-bold text-complexo-light">{plan.name}</p>
                           <p className="text-sm text-complexo-muted">Mensalidade</p>
                         </div>
-                        <span className="font-rajdhani text-xl font-bold text-complexo-light">R${plan.price}</span>
+                        <span className="font-rajdhani text-xl font-bold text-complexo-light">{formatBRL(plan.price)}</span>
                       </div>
                     </div>
                   )}
@@ -268,7 +269,7 @@ export const Checkout = () => {
                               <p className="font-semibold text-sm line-clamp-2">{item.name}</p>
                               <div className="flex justify-between mt-1">
                                 <span className="text-xs text-complexo-muted">Qtd: {item.quantity}</span>
-                                <span className="font-rajdhani font-bold">R${item.price * item.quantity}</span>
+                                <span className="font-rajdhani font-bold">{formatBRL(item.price * item.quantity)}</span>
                               </div>
                             </div>
                           </div>
@@ -280,11 +281,11 @@ export const Checkout = () => {
                   <div className="border-t border-complexo-light/10 pt-6 space-y-3">
                     <div className="flex justify-between text-sm text-complexo-muted">
                       <span>Subtotal</span>
-                      <span>R${total}</span>
+                      <span>{formatBRL(total)}</span>
                     </div>
                     <div className="flex justify-between text-sm text-emerald-500">
                       <span>Descontos</span>
-                      <span>R$0</span>
+                      <span>{formatBRL(0)}</span>
                     </div>
                     <div className="flex justify-between text-sm text-complexo-muted">
                       <span>Frete</span>
@@ -295,7 +296,7 @@ export const Checkout = () => {
                   <div className="border-t border-complexo-light/10 pt-6">
                     <div className="flex justify-between items-end">
                       <span className="font-bold uppercase text-complexo-muted">Total</span>
-                      <span className="font-rajdhani text-4xl font-bold text-complexo-red">R${total}</span>
+                      <span className="font-rajdhani text-4xl font-bold text-complexo-red">{formatBRL(total)}</span>
                     </div>
                   </div>
 

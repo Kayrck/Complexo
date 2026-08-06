@@ -5,6 +5,7 @@ import { Reveal } from "../components/Reveal";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { ProductCard } from "../components/ProductCard";
 import { useAppContext } from "../context";
+import { isPromotionActive, getEffectivePrice, formatBRL } from "../inventory";
 
 export const ProdutoDetalhe = () => {
   const { id } = useParams();
@@ -32,6 +33,8 @@ export const ProdutoDetalhe = () => {
   const isFavorite = favorites.includes(product.id);
   const inCart = cart.some((item) => item.id === product.id);
   const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 3);
+  const promoActive = isPromotionActive(product);
+  const effectivePrice = getEffectivePrice(product);
 
   const handleAdd = () => {
     for (let i = 0; i < qty; i++) addToCart(product.id);
@@ -75,8 +78,20 @@ export const ProdutoDetalhe = () => {
             </h1>
             <p className="mt-4 text-lg text-complexo-muted">{product.description}</p>
 
-            <div className="mt-6 flex items-baseline gap-2">
-              <span className="font-rajdhani text-4xl font-bold">R${product.price}</span>
+            {promoActive && (
+              <span className="mt-4 inline-flex items-center rounded-full bg-complexo-red px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+                Promoção · -{product.promotion!.discountPercent}%
+              </span>
+            )}
+            <div className="mt-4 flex items-baseline gap-3">
+              {promoActive && (
+                <span className="font-rajdhani text-2xl font-bold text-complexo-muted line-through">
+                  {formatBRL(product.price)}
+                </span>
+              )}
+              <span className={`font-rajdhani text-4xl font-bold ${promoActive ? "text-complexo-red" : ""}`}>
+                {formatBRL(effectivePrice)}
+              </span>
               {product.servingsPerContainer && (
                 <span className="text-sm text-complexo-muted">
                   {product.servingsPerContainer} doses por pote

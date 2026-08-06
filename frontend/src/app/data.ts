@@ -1,4 +1,5 @@
 import { Dumbbell, ShoppingBag, HeartPulse, Salad, LucideIcon } from "lucide-react";
+import type { Promotion } from "./inventory";
 import academiaImg from "../imports/academia/academia-sala-vermelha.png";
 import pilatesImg from "../imports/pilates/pilates-estudio.png";
 import suplementosImg from "../imports/suplementos/suplementos-creatina.png";
@@ -88,7 +89,16 @@ export interface Product {
   id: string;
   name: string;
   category: string;
+  brand?: string;
+  /** Código interno único do produto. */
+  sku: string;
+  /** EAN/UPC — estrutura preparada para leitor de código de barras; não validado por dígito verificador. */
+  barcode?: string;
+  /** Preço de venda atual — derivado de costPrice + marginPercent sempre que um dos dois é editado (ver inventory.ts). */
   price: number;
+  costPrice: number;
+  /** Margem sobre o custo (markup): (price - costPrice) / costPrice * 100. */
+  marginPercent: number;
   accent: string;
   image: string;
   blurb: string;
@@ -96,8 +106,11 @@ export interface Product {
   description: string;
   /** Units currently in stock at the Suplementos unit. */
   stock: number;
-  /** Units sold in the current month — feeds the admin's best-sellers panorama. */
-  unitsSold: number;
+  /** Nível a partir do qual o produto entra em alerta de estoque baixo. */
+  minStock: number;
+  supplier?: string;
+  status: "ativo" | "inativo";
+  promotion?: Promotion;
   /** Detail fields — optional since a freshly published product may not have
    * all of this filled in yet. */
   servingSize?: string;
@@ -113,12 +126,19 @@ export const PRODUCTS: Product[] = [
     id: "whey-iso",
     name: "Whey Isolate",
     category: "Proteína",
+    brand: "Growth Supplements",
+    sku: "CPLX-WHEY-001",
+    barcode: "7891000000013",
     price: 189,
+    costPrice: 108,
+    marginPercent: 75,
     accent: "#E10600",
     image: wheyImg,
     blurb: "27g de proteína por dose, absorção rápida.",
     stock: 18,
-    unitsSold: 142,
+    minStock: 15,
+    supplier: "Growth Supplements",
+    status: "ativo",
     description:
       "Proteína isolada do soro do leite, com absorção rápida e baixo teor de carboidratos e gordura. Ideal para o pós-treino, quando o corpo mais precisa de aminoácidos para iniciar a recuperação muscular.",
     servingSize: "1 scoop (30g)",
@@ -143,12 +163,19 @@ export const PRODUCTS: Product[] = [
     id: "creatina",
     name: "Creatina Monohidratada",
     category: "Performance",
+    brand: "Growth Supplements",
+    sku: "CPLX-CREA-001",
+    barcode: "7891000000020",
     price: 119,
+    costPrice: 68,
+    marginPercent: 75,
     accent: "#2b6fff",
     image: creatinaImg,
     blurb: "Força e volume com 5g de creatina pura.",
     stock: 6,
-    unitsSold: 118,
+    minStock: 10,
+    supplier: "Growth Supplements",
+    status: "ativo",
     description:
       "Um dos suplementos mais estudados do mercado, ajuda a aumentar a força, a potência e o volume muscular. Ótima para quem treina musculação com foco em ganho de performance.",
     servingSize: "1 dose (5g)",
@@ -170,12 +197,19 @@ export const PRODUCTS: Product[] = [
     id: "pre-treino",
     name: "Pré-Treino Surge",
     category: "Energia",
-    price: 139,
+    brand: "Max Titanium",
+    sku: "CPLX-PRET-001",
+    barcode: "7891000000037",
+    price: 140,
+    costPrice: 80,
+    marginPercent: 75,
     accent: "#ff7a00",
     image: preTreinoImg,
     blurb: "Foco e energia explosiva para o treino.",
     stock: 24,
-    unitsSold: 76,
+    minStock: 10,
+    supplier: "Max Titanium",
+    status: "ativo",
     description: "Fórmula estimulante para energia e foco explosivos, pensada pra quem quer levar cada treino ao limite.",
     servingSize: "1 dose (10g)",
     servingsPerContainer: 30,
@@ -198,12 +232,19 @@ export const PRODUCTS: Product[] = [
     id: "bcaa",
     name: "BCAA Recovery",
     category: "Recuperação",
+    brand: "Max Titanium",
+    sku: "CPLX-BCAA-001",
+    barcode: "7891000000044",
     price: 99,
+    costPrice: 60,
+    marginPercent: 65,
     accent: "#16a34a",
     image: bcaaImg,
     blurb: "Aminoácidos para recuperação muscular.",
     stock: 3,
-    unitsSold: 54,
+    minStock: 8,
+    supplier: "Max Titanium",
+    status: "ativo",
     description: "Aminoácidos de cadeia ramificada para reduzir o catabolismo muscular e acelerar a recuperação entre os treinos.",
     servingSize: "1 dose (10g)",
     servingsPerContainer: 30,
@@ -227,12 +268,19 @@ export const PRODUCTS: Product[] = [
     id: "multi",
     name: "Multivitamínico",
     category: "Saúde",
-    price: 79,
+    brand: "Vitafor",
+    sku: "CPLX-MULT-001",
+    barcode: "7891000000051",
+    price: 80,
+    costPrice: 50,
+    marginPercent: 60,
     accent: "#9333ea",
     image: multiImg,
     blurb: "Suporte diário completo de vitaminas.",
     stock: 40,
-    unitsSold: 39,
+    minStock: 10,
+    supplier: "Vitafor",
+    status: "ativo",
     description: "Suporte diário completo com vitaminas e minerais essenciais para manter o corpo em equilíbrio, mesmo na rotina mais corrida.",
     servingSize: "1 cápsula",
     servingsPerContainer: 60,
@@ -256,12 +304,19 @@ export const PRODUCTS: Product[] = [
     id: "colageno",
     name: "Colágeno Hidrolisado",
     category: "Bem-estar",
-    price: 109,
+    brand: "Vitafor",
+    sku: "CPLX-COLA-001",
+    barcode: "7891000000068",
+    price: 109.2,
+    costPrice: 65,
+    marginPercent: 68,
     accent: "#db2777",
     image: colagenoImg,
     blurb: "Articulações, pele e tecidos saudáveis.",
     stock: 12,
-    unitsSold: 61,
+    minStock: 8,
+    supplier: "Vitafor",
+    status: "ativo",
     description: "Colágeno tipo I e III hidrolisado, formulado para apoiar a saúde da pele, cabelos, unhas e articulações.",
     servingSize: "1 dose (10g)",
     servingsPerContainer: 30,
@@ -283,12 +338,19 @@ export const PRODUCTS: Product[] = [
     id: "omega-3",
     name: "Ômega 3",
     category: "Saúde",
-    price: 89,
+    brand: "Vitafor",
+    sku: "CPLX-OMEG-001",
+    barcode: "7891000000075",
+    price: 88.92,
+    costPrice: 52,
+    marginPercent: 71,
     accent: "#0891b2",
     image: omegaImg,
     blurb: "Saúde cardiovascular e função cerebral em dia.",
     stock: 9,
-    unitsSold: 47,
+    minStock: 8,
+    supplier: "Vitafor",
+    status: "ativo",
     description: "Ácidos graxos EPA e DHA para apoiar a saúde cardiovascular, cognitiva e o processo de recuperação do corpo.",
     servingSize: "2 cápsulas",
     servingsPerContainer: 60,
@@ -310,12 +372,19 @@ export const PRODUCTS: Product[] = [
     id: "hipercalorico",
     name: "Hipercalórico Mass",
     category: "Performance",
-    price: 159,
+    brand: "Growth Supplements",
+    sku: "CPLX-HIPE-001",
+    barcode: "7891000000082",
+    price: 158.65,
+    costPrice: 95,
+    marginPercent: 67,
     accent: "#ca8a04",
     image: hipercaloricoImg,
     blurb: "Calorias de qualidade para ganho de massa real.",
     stock: 2,
-    unitsSold: 33,
+    minStock: 5,
+    supplier: "Growth Supplements",
+    status: "ativo",
     description: "Calorias de qualidade em cada dose, combinando carboidratos, proteínas e gorduras boas para quem busca ganho de massa real.",
     servingSize: "2 scoops (150g)",
     servingsPerContainer: 20,
@@ -338,12 +407,19 @@ export const PRODUCTS: Product[] = [
     id: "glutamina",
     name: "Glutamina Pura",
     category: "Recuperação",
-    price: 94,
+    brand: "Max Titanium",
+    sku: "CPLX-GLUT-001",
+    barcode: "7891000000099",
+    price: 94.05,
+    costPrice: 55,
+    marginPercent: 71,
     accent: "#65a30d",
     image: glutaminaImg,
     blurb: "Reduz o catabolismo e acelera a recuperação muscular.",
     stock: 27,
-    unitsSold: 28,
+    minStock: 10,
+    supplier: "Max Titanium",
+    status: "ativo",
     description: "Aminoácido mais abundante no corpo, ajuda a reduzir o catabolismo muscular e apoia o sistema imunológico em períodos de treino intenso.",
     servingSize: "1 dose (5g)",
     servingsPerContainer: 60,

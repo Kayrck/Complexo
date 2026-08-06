@@ -18,6 +18,7 @@ export const AUDIT_ACTIONS = {
   EMPLOYEE_CREATED: "funcionario_cadastrado",
   HOUR_BANK_UPDATE: "banco_horas_atualizado",
   FINANCE_UPDATE: "financeiro_atualizado",
+  INVENTORY_UPDATE: "estoque_atualizado",
 } as const;
 
 export const createAuditEntry = (entry: Omit<AuditLogEntry, "id" | "timestamp">): AuditLogEntry => ({

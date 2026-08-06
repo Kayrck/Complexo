@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { Plus, Heart } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Product } from "../data";
+import { isPromotionActive, getEffectivePrice, formatBRL } from "../inventory";
 
 interface ProductCardProps {
   product: Product;
@@ -13,7 +14,11 @@ interface ProductCardProps {
 
 /** Shared product tile — used on Suplementos, the Home Loja carousel and
  * Favoritos, so the same card always leads to the same detail page. */
-export const ProductCard = ({ product, added, onAdd, isFavorite, onToggleFavorite }: ProductCardProps) => (
+export const ProductCard = ({ product, added, onAdd, isFavorite, onToggleFavorite }: ProductCardProps) => {
+  const promoActive = isPromotionActive(product);
+  const effectivePrice = getEffectivePrice(product);
+
+  return (
   <div
     className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-complexo-light/10 bg-complexo-surface"
     style={{ perspective: "1000px" }}
@@ -29,6 +34,11 @@ export const ProductCard = ({ product, added, onAdd, isFavorite, onToggleFavorit
         className="relative h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:[transform:rotateY(8deg)]"
       />
     </Link>
+    {promoActive && (
+      <span className="absolute left-3 top-3 rounded-full bg-complexo-red px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white">
+        -{product.promotion!.discountPercent}%
+      </span>
+    )}
     <div className="absolute right-3 top-3 flex flex-col gap-2">
       <button
         onClick={onToggleFavorite}
@@ -51,7 +61,14 @@ export const ProductCard = ({ product, added, onAdd, isFavorite, onToggleFavorit
       <p className="mt-1.5 flex-1 text-sm text-complexo-muted">{product.blurb}</p>
 
       <div className="mt-5 flex items-center justify-between">
-        <span className="font-rajdhani text-2xl font-bold">R${product.price}</span>
+        <div className="flex flex-col">
+          {promoActive && (
+            <span className="font-mono text-xs text-complexo-muted line-through">{formatBRL(product.price)}</span>
+          )}
+          <span className={`font-rajdhani text-2xl font-bold ${promoActive ? "text-complexo-red" : ""}`}>
+            {formatBRL(effectivePrice)}
+          </span>
+        </div>
         <button
           onClick={onAdd}
           className="inline-flex items-center gap-1.5 rounded-full bg-complexo-red px-4 py-2 text-sm font-semibold text-white hover:bg-complexo-red-bright"
@@ -61,4 +78,5 @@ export const ProductCard = ({ product, added, onAdd, isFavorite, onToggleFavorit
       </div>
     </div>
   </div>
-);
+  );
+};

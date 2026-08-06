@@ -2,9 +2,10 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { Product, PRODUCTS } from "./data";
 import { Employee, EMPLOYEES, HourBankEntry, HOUR_BANK_ENTRIES, ScheduleChangeLog, SCHEDULE_CHANGES, type HourBankStatus } from "./hr";
 import type { PermissionKey } from "./rbac";
-import { AuditLogEntry, AUDIT_LOG_SEED, createAuditEntry } from "./auditLog";
+import { AuditLogEntry, AUDIT_LOG_SEED, AUDIT_ACTIONS, createAuditEntry } from "./auditLog";
 import { getEmployeeId } from "./auth";
 import { Receivable, RECEIVABLES, Payable, PAYABLES, type ReceivableStatus, type PayableStatus } from "./finance";
+import { ProductSale, PRODUCT_SALES, calculatePriceFromMargin, getEffectivePrice, type Promotion } from "./inventory";
 
 type CartItem = Product & { quantity: number };
 
@@ -12,6 +13,13 @@ interface AppContextType {
   products: Product[];
   addProduct: (product: Product) => void;
   updateProductStock: (productId: string, stock: number) => void;
+  updateProductPricing: (productId: string, costPrice: number, marginPercent: number) => void;
+  updateProductDetails: (
+    productId: string,
+    updates: Partial<Pick<Product, "name" | "category" | "brand" | "sku" | "barcode" | "minStock" | "supplier" | "status" | "blurb" | "description" | "image" | "accent">>,
+  ) => void;
+  updateProductPromotion: (productId: string, promotion: Promotion | undefined) => void;
+  sales: ProductSale[];
   cart: CartItem[];
   addToCart: (productId: string) => void;
   removeFromCart: (productId: string) => void;
@@ -50,6 +58,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [scheduleChanges] = useState<ScheduleChangeLog[]>(SCHEDULE_CHANGES);
   const [receivables, setReceivables] = useState<Receivable[]>(RECEIVABLES);
   const [payables, setPayables] = useState<Payable[]>(PAYABLES);
+  const [sales] = useState<ProductSale[]>(PRODUCT_SALES);
 
   const currentEmployee = employees.find((e) => e.id === getEmployeeId());
 
@@ -85,10 +94,59 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   const addProduct = (product: Product) => {
     setProducts((prev) => [product, ...prev]);
+    logAudit({
+      actorId: currentEmployee?.id ?? null,
+      actorName: currentEmployee?.name ?? "Sessão não autenticada",
+      action: AUDIT_ACTIONS.INVENTORY_UPDATE,
+      details: `Cadastrou o produto ${product.name} (${product.sku}).`,
+      severity: "info",
+    });
   };
 
   const updateProductStock = (productId: string, stock: number) => {
     setProducts((prev) => prev.map((p) => (p.id === productId ? { ...p, stock: Math.max(0, stock) } : p)));
+  };
+
+  const updateProductDetails = (
+    productId: string,
+    updates: Partial<Pick<Product, "name" | "category" | "brand" | "sku" | "barcode" | "minStock" | "supplier" | "status" | "blurb" | "description" | "image" | "accent">>,
+  ) => {
+    const product = products.find((p) => p.id === productId);
+    setProducts((prev) => prev.map((p) => (p.id === productId ? { ...p, ...updates } : p)));
+    logAudit({
+      actorId: currentEmployee?.id ?? null,
+      actorName: currentEmployee?.name ?? "Sessão não autenticada",
+      action: AUDIT_ACTIONS.INVENTORY_UPDATE,
+      details: `Atualizou os dados cadastrais de ${product?.name ?? productId}.`,
+      severity: "info",
+    });
+  };
+
+  const updateProductPricing = (productId: string, costPrice: number, marginPercent: number) => {
+    const { price } = calculatePriceFromMargin(costPrice, marginPercent);
+    const product = products.find((p) => p.id === productId);
+    setProducts((prev) => prev.map((p) => (p.id === productId ? { ...p, costPrice, marginPercent, price } : p)));
+    logAudit({
+      actorId: currentEmployee?.id ?? null,
+      actorName: currentEmployee?.name ?? "Sessão não autenticada",
+      action: AUDIT_ACTIONS.INVENTORY_UPDATE,
+      details: `Atualizou precificação de ${product?.name ?? productId}: custo R$${costPrice.toFixed(2)}, margem ${marginPercent}% → venda R$${price.toFixed(2)}.`,
+      severity: "info",
+    });
+  };
+
+  const updateProductPromotion = (productId: string, promotion: Promotion | undefined) => {
+    const product = products.find((p) => p.id === productId);
+    setProducts((prev) => prev.map((p) => (p.id === productId ? { ...p, promotion } : p)));
+    logAudit({
+      actorId: currentEmployee?.id ?? null,
+      actorName: currentEmployee?.name ?? "Sessão não autenticada",
+      action: AUDIT_ACTIONS.INVENTORY_UPDATE,
+      details: promotion
+        ? `Ativou promoção em ${product?.name ?? productId}: R$${promotion.promoPrice.toFixed(2)} (${promotion.discountPercent}% off) até ${promotion.endDate}.`
+        : `Encerrou a promoção de ${product?.name ?? productId}.`,
+      severity: "warning",
+    });
   };
 
   const addToCart = (productId: string) => {
@@ -101,7 +159,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       }
       const product = products.find((p) => p.id === productId);
       if (product) {
-        return [...prev, { ...product, quantity: 1 }];
+        return [...prev, { ...product, price: getEffectivePrice(product), quantity: 1 }];
       }
       return prev;
     });
@@ -138,6 +196,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         products,
         addProduct,
         updateProductStock,
+        updateProductPricing,
+        updateProductDetails,
+        updateProductPromotion,
+        sales,
         cart,
         addToCart,
         removeFromCart,
